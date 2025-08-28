@@ -12,7 +12,7 @@ LIGHT='\033[0;37m'
 CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
 KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
 export TIME="10"
-export URL="https://api.telegram.org/bot$KEY/sendMessage"
+export URL="https://eissamixr.org/bot$KEY/sendMessage"
 clear
 function notif_restore() {
     green "Notif AddHost Tele"
