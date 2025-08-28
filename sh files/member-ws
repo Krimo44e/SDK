@@ -1,0 +1,40 @@
+#!/bin/bash
+# //====================================================
+# //	System Request:Debian 9+/Ubuntu 18.04+/20+
+
+# //====================================================
+Green="\e[92;1m"
+RED="\033[31m"
+NC='\033[0m'
+OR='\033[1;93m'
+gg='\e[1;77m' #ijo tebel
+
+clear
+echo -e " ${OR}──────────────────────────────────────${NC}"
+echo -e "    ${grenbo} .::.${NC}${gg} MEMBER VMESS ACCOUNT ${grenbo}.::.${NC}"
+echo -e " ${OR}──────────────────────────────────────${NC}"
+echo -n > /var/log/xray/accsess.log
+data=( `cat /etc/xray/config.json | grep '###' | cut -d ' ' -f 2 | sort | uniq`);
+for user in "${data[@]}"
+do
+lquota=$(cat /etc/limit/vmess/${user})
+echo > /dev/null
+jum=$(cat /etc/xray/config.json | grep -c '###' | awk '{print $1/2}')
+if [[ $jum -gt 0 ]]; then
+exp=$(grep -wE "^### $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+echo -e "Username  : $user"
+echo -e "Limit     : $lquota GB"
+echo -e "Expired   : $exp"
+echo -e "${OR}────────────────────────────────────────────${NC}"
+echo "slot" >> /root/.system
+else
+echo > /dev/null
+fi
+sleep 0.1
+done
+aktif=$(cat /root/.system | wc -l)
+echo -e "${OR}────────────────────────────────────────────${NC}"
+echo -e "            $aktif Member Aktive"
+echo -e "${OR}────────────────────────────────────────────${NC}"
+sed -i "d" /root/.system
+echo -e ""
