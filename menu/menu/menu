@@ -1,7 +1,7 @@
 #!/bin/bash
 # COLOR VALIDATION
 clear
-y='\033[1;33m' #yellow
+y='\033[1;33m' # yellow
 BGX="\033[42m"
 CYAN="\033[96m"
 z="\033[96m"
@@ -156,56 +156,73 @@ let ssa=$ssx/2
 KANAN="\033[1;32m<\033[1;33m<\033[1;31m<\033[1;31m$NC"
 KIRI="\033[1;32m>\033[1;33m>\033[1;31m>\033[1;31m$NC"
 ########
-r="\033[1;31m"  #REDTERANG
-a=" ${CYAN}ACCOUNT PREMIUM" 
+r="\033[1;31m"  # Bright Red
+a=" ${CYAN}PREMIUM ACCOUNT" 
 #clear
+# ---- Centered banner helper ----
+print_center_box() {
+  local text="$1"
+  local width=58  # inner width between the box edges
+  local text_length=${#text}
+
+  # If the text is longer than the default width, expand the box
+  if (( text_length > width )); then
+    width=$text_length
+  fi
+
+  # Compute left/right padding (handles odd lengths)
+  local pad_left=$(( (width - text_length) / 2 ))
+  local pad_right=$(( width - text_length - pad_left ))
+
+  local spaces_left=$(printf '%*s' "$pad_left")
+  local spaces_right=$(printf '%*s' "$pad_right")
+  local line=$(printf '%*s' "$width" | tr ' ' '═')
+
+  echo -e " ${z}╭${line}╮${NC}"
+  echo -e " ${z}│$NC${f}${spaces_left}${text}${spaces_right}$NC${z}│$NC"
+  echo -e " ${z}╰${line}╯${NC}"
+}
+
 echo -e " "
-echo -e " ${z}╭══════════════════════════════════════════════════════════╮${NC}"
-echo -e " ${z}│$NC${f}    WELCOME TO  SCRIPT BY LUCKI NS PREMIUM      $NC${z}│$NC"
-echo -e " ${z}╰══════════════════════════════════════════════════════════╯${NC}"
+
+# ---- Welcome banner ----
+print_center_box "EissamiXR — Tunneling Management Dashboard"
 echo -e " ${z}══════════════════════════════════════════════════════════${NC}"
-echo -e " ${z}$NC$r ⇲ $NC$y System OS ${NC}     $Blue=$NC $MODEL${NC}"
-echo -e " ${z}$NC$r ⇲ $NC$y ISP ${NC}           $Blue=$NC $ISP${NC}"
-echo -e " ${z}$NC$r ⇲ $NC$y $IPVPS ${NC}          $Blue=$NC $CITY${NC}"
-echo -e " ${z}$NC$r ⇲ $NC$y CITY ${NC}          $Blue=$NC $CITY${NC}"
-echo -e " ${z}$NC$r ⇲ $NC$y Server RAM ${NC}    $Blue=$NC $tram MB $NC"
-echo -e " ${z}$NC$r ⇲ $NC$y Core Cpu ${NC}      $Blue=$NC $CORE${NC}" CPU
-echo -e " ${z}$NC$r ⇲ $NC$y Uptime Server ${NC} $Blue=$NC $SERONLINE${NC}"
-echo -e " ${z}$NC$r ⇲ $NC$y Date ${NC}          $Blue=$NC $DATEVPS${NC}"
-echo -e " ${z}$NC$r ⇲ $NC$y Time ${NC}          $Blue=$NC $TIMEZONE${NC}"
-echo -e " ${z}$NC$r ⇲ $NC$y Domain ${NC}        $Blue=$NC $domain${NC}"
+echo -e " ${z}$NC$r ⇲ $NC$y Operating System ${NC}     $Blue=$NC $MODEL${NC}"
+echo -e " ${z}$NC$r ⇲ $NC$y ISP ${NC}                  $Blue=$NC $ISP${NC}"
+echo -e " ${z}$NC$r ⇲ $NC$y IP Address ${NC}           $Blue=$NC $IPVPS${NC}"
+echo -e " ${z}$NC$r ⇲ $NC$y City ${NC}                 $Blue=$NC $CITY${NC}"
+echo -e " ${z}$NC$r ⇲ $NC$y Server RAM ${NC}           $Blue=$NC $tram MB $NC"
+echo -e " ${z}$NC$r ⇲ $NC$y CPU Cores ${NC}            $Blue=$NC $CORE${NC} CPU"
+echo -e " ${z}$NC$r ⇲ $NC$y Server Uptime ${NC}        $Blue=$NC $SERONLINE${NC}"
+echo -e " ${z}$NC$r ⇲ $NC$y Current Date ${NC}         $Blue=$NC $DATEVPS${NC}"
+echo -e " ${z}$NC$r ⇲ $NC$y Current Time ${NC}         $Blue=$NC $TIMEZONE${NC}"
+echo -e " ${z}$NC$r ⇲ $NC$y Domain ${NC}               $Blue=$NC $domain${NC}"
 echo -e " ${z}══════════════════════════════════════════════════════════${NC}"
-echo -e "            ${KIRI} ${Blue}INFORMATION ACCOUNT ON VPS${NC} ${KANAN}"
 echo -e "          ${NC}┌─────────────────────────────────────┐${NC}"
-echo -e "                 ${CYAN}ACCOUNT SSH/OVPN/UDP${NC}   $y=$NC $ssh1${NC}"
-echo -e "                 ${CYAN}ACCOUNT VMESS/WS/GRPC${NC}  $y=$NC $vma$NC"
-echo -e "                 ${CYAN}ACCOUNT VLESS/WS/GRPC${NC}  $y=$NC $vla$NC" 
-echo -e "                 ${CYAN}ACCOUNT TROJAN/WS/GRPC${NC} $y=$NC $trb${NC}"
-echo -e "                 ${CYAN}ACCOUNT SHADOW/WS/GRPC${NC} $y=$NC $ssa${NC}"
+echo -e "                 ${CYAN}SSH/OVPN/UDP Accounts${NC}     $y=$NC $ssh1${NC}"
+echo -e "                 ${CYAN}VMESS/WS/GRPC Accounts${NC}    $y=$NC $vma${NC}"
+echo -e "                 ${CYAN}VLESS/WS/GRPC Accounts${NC}    $y=$NC $vla${NC}" 
+echo -e "                 ${CYAN}TROJAN/WS/GRPC Accounts${NC}   $y=$NC $trb${NC}"
+echo -e "                 ${CYAN}SHADOW/WS/GRPC Accounts${NC}   $y=$NC $ssa${NC}"
 echo -e "          ${NC}└─────────────────────────────────────┘${NC}"
-echo -e "               ${KIRI} ${RED} SCRIPT BY LUCKI NS TUNNELING  ${NC} ${KANAN}"
 echo -e " ${z}╭════════════════╮╭══════════════════╮╭════════════════════╮${NC}"
 echo -e " ${z}│ ${NC}$y SSH$NC : $status_ssh" "       $y NGINX$NC : $status_nginx" "       $y XRAY$NC : $status_xray     $NC${z}│$NC" 
 echo -e " ${z}│ ${NC}$y WS-ePRO$NC : $status_ws_epro" "   $y DROPBEAR$NC : $status_dropbear" "    $y HAPROXY$NC : $status_haproxy  $NC${z}│$NC" 
 echo -e " ${z}╰════════════════╯╰══════════════════╯╰════════════════════╯${NC}"
-echo -e "            ${KIRI} ${Green}⇱ ALL FITUR SC TUNNELING ⇲${NC} ${KANAN}"
 echo -e "    ${z}══════════════════════════════════════════════════════${NC}"
-echo -e "           ${z}$NC [${r}01${NC}]$green MENU SSH$NC     ${z}│$NC [${r}05${NC}]$green MENU SSWS$NC  ${z}$NC"
-echo -e "           ${z}$NC [${r}02${NC}]$green MENU VMESS$NC   ${z}│$NC [${r}06${NC}]$green MENU NOOBZVPN$NC ${z}$NC"
-echo -e "           ${z}$NC [${r}03${NC}]$green MENU VLESS$NC   ${z}│$NC [${r}07${NC}]$green SPEEDTEST$NC ${z} $NC"
-echo -e "           ${z}$NC [${r}04${NC}]$green MENU TROJAN$NC  ${z}│$NC [${r}08${NC}]$green MENU UTILITY$NC ${z} $NC"
+echo -e "           ${z}$NC [${r}01${NC}]$green SSH MENU$NC      ${z}│$NC [${r}05${NC}]$green SSWS MENU$NC     ${z}$NC"
+echo -e "           ${z}$NC [${r}02${NC}]$green VMESS MENU$NC    ${z}│$NC [${r}06${NC}]$green NOOBZVPN MENU$NC ${z}$NC"
+echo -e "           ${z}$NC [${r}03${NC}]$green VLESS MENU$NC    ${z}│$NC [${r}07${NC}]$green SPEEDTEST$NC     ${z} $NC"
+echo -e "           ${z}$NC [${r}04${NC}]$green TROJAN MENU$NC   ${z}│$NC [${r}08${NC}]$green UTILITY MENU$NC  ${z} $NC"
 echo -e "    ${z}══════════════════════════════════════════════════════${NC}"
-echo -e "            ${KIRI}${z} INFORMATION YOUR ACTIVE PERIOD ${z}${KANAN}"
 echo -e " ${z}╭══════════════════════════════════════════════════════════╮${NC}"
-echo -e " ${z}│$NC${z} Developer$NC  ${z}=$NC SCRIPT BY EissamiXR"
-echo -e " ${z}│$NC${z} Telegram$NC   ${z}=$NC @EissamiXR"
-echo -e " ${z}│$NC${z} IP ADDRESS ${z}=$NC $IPVPS${NC}"
-echo -e " ${z}│$NC${z} User$NC       ${z}=$NC Administrator"
-echo -e " ${z}│$NC${z} Exp Script$NC ${z}=$NC Unlimited (License Removed)"
+echo -e " ${z}│$NC${z} Developer$NC   ${z}=$NC SCRIPT BY EissamiXR"
+echo -e " ${z}│$NC${z} Telegram$NC    ${z}=$NC @EissamiXR"
+echo -e " ${z}│$NC${z} User$NC        ${z}=$NC Administrator"
 echo -e " ${z}╰══════════════════════════════════════════════════════════╯${NC}"
-echo -e "     ${KIRI}${z}THANKS YOU FOR USING SCRIPT BY EissamiXR${z}${KANAN}"
 echo -e ""
-read -p " PILIH MENU DENGAN CARA KETIK 1/8 : " opt
+read -p " PLEASE SELECT A MENU OPTION (1-8): " opt
 echo -e ""
 case $opt in
 1 | 01)

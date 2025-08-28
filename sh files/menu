@@ -121,7 +121,7 @@ a=" ${CYAN}ACCOUNT PREMIUM"
 #clear
 echo -e " "
 echo -e " ${z}╭══════════════════════════════════════════════════════════╮${NC}"
-echo -e " ${z}│$NC${f}    WELCOME TO  SCRIPT BY EissamiXR AUTOSCRIPT PREMIUM      $NC${z}│$NC"
+echo -e " ${z}│$NC${f}   WELCOME TO  SCRIPT BY EissamiXR AUTOSCRIPT PREMIUM      $NC${z}│$NC"
 echo -e " ${z}╰══════════════════════════════════════════════════════════╯${NC}"
 echo -e " ${z}══════════════════════════════════════════════════════════${NC}"
 echo -e " ${z}$NC$r ⇲ $NC$y System OS ${NC}     $Blue=$NC $MODEL${NC}"
