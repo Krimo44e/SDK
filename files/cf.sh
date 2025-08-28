@@ -24,7 +24,7 @@ fi
 clear
 apt install jq curl -y
 DOMAIN=amazingseven.online
-read -p "Enter your desired subdomain (without .amazingseven.online): " sub
+read -p "$(echo -e ${GREEN}Enter Your Desired Subdomain \(without .amazingseven.online\): ${NC})" sub
 SUB_DOMAIN=${sub}.amazingseven.online
 CF_ID=amazing7.me@gmail.com
 CF_KEY=8baccb3a0cd04f9095fd1fdd9c932fffcf9c3
