@@ -16,16 +16,15 @@ if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
 fi
 
 clear
-CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
-KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+
 sed -i "/^#bot# $bottken $admin/d" /etc/bot/.bot.db
 rm -rf /etc/bot/.bot.db
 clear
 echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo -e " \e[1;97;101m      SUCCES DELETE BOT NOTIFIKASI      \e[0m"
 echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-echo " Bot Token    : $KEY"
-echo " ID Telegram  : $CHATID"
+echo " Bot Token    : "
+echo " ID Telegram  : "
 echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 echo ""
 read -n 1 -s -r -p "Press [ Enter ] to back on menu"

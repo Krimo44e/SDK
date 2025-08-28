@@ -31,8 +31,7 @@ LIGHT='\033[0;37m'
 grenbo="\e[92;1m"
 red() { echo -e "\\033[32;1m${*}\\033[0m"; }
 # Getting
-CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
-KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+
 export TIME="10"
 export URL="https://eissamixr.org/bot$KEY/sendMessage"
 clear
@@ -94,29 +93,10 @@ function pasang_ssl() {
     systemctl restart xray
     systemctl restart haproxy
 }
-function notif_addhost() {
-    green "Notif AddHost Tele"
-    sleep 2
-    CHATID="$CHATID"
-KEY="$KEY"
-TIME="$TIME"
-URL="$URL"
-TEXT="
-<code>◇━━━━━━━━━━━━━━◇</code>
-<b>   ⚠️ADDHOST NOTIF⚠️</b>
-<b>     Add Domain New</b>
-<code>◇━━━━━━━━━━━━━━◇</code>
-<b>IP VPS  :</b> <code>$MYIP </code>
-<b>DOMAIN :</b> <code>$pp</code>
-<code>◇━━━━━━━━━━━━━━◇</code>
-<code>NEW ADD DOMAIN</code>
-<code>BY BOT : SCRIPT BY LUCKI NS</code>
-"
-curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-}
+
 pasang_domain
 pasang_ssl
-notif_addhost
+
 
 echo ""
 green "Back to menu in 2 sec ${NC}"

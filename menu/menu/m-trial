@@ -51,19 +51,19 @@ echo -e "\033[1;93m└───────────────────�
 echo -e ""
 read -p "Select From Options [ 1 - 5 ] : " menu
 case $menu in
-1) clear ; checking_sc ;
+1) clear ; 
     trial
     ;;
-2) clear ; checking_sc ;
+2) clear ; 
     trialss
     ;;
-3) clear ; checking_sc ;
+3) clear ; 
     trialtr
     ;;
-4) clear ; checking_sc ;
+4) clear ; 
     trialvless
     ;;
-5) clear ; checking_sc ;
+5) clear ; 
     trialws
     ;;
 *)

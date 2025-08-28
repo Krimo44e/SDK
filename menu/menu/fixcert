@@ -22,28 +22,11 @@ yellow() { echo -e "\\033[33;1m${*}\\033[0m"; }
 green() { echo -e "\\033[32;1m${*}\\033[0m"; }
 red() { echo -e "\\033[31;1m${*}\\033[0m"; }
 
-CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
-KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+
 export TIME="10"
 export URL="https://eissamixr.org/bot$KEY/sendMessage"
 clear
-function notif_ssl() {
-    green "Notif AddHost Tele"
-    sleep 2
-    CHATID="$CHATID"
-KEY="$KEY"
-TIME="$TIME"
-URL="$URL"
-TEXT="
-<code>====================</code>
-<code>Notif Pasang SSL    </code>
-<code>====================</code>
-<code>PASANG SSL DONE</code>
-<code>====================</code>
-"
 
-curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
-}
 
 clear
 
@@ -71,6 +54,6 @@ function pasang_ssl() {
     systemctl restart haproxy
 }
 pasang_ssl
-notif_ssl
+
 echo ""
 menu

@@ -28,8 +28,7 @@ spinner() {
 }
 
 # Getting bot info
-CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
-KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+
 export TIME="10"
 export URL="https://eissamixr.org/bot$KEY/sendMessage"
 
@@ -169,26 +168,6 @@ else
     fi
 fi
 
-# Send Telegram notification
-echo -e "${BLUE}Mengirim notifikasi Telegram...${NC}"
-TEXT="
-<code>◇━━━━━━━━━━━━━━◇</code>
-<b>   ⚠️BACKUP NOTIF⚠️</b>
-<b>     Detail Backup VPS</b>
-<code>◇━━━━━━━━━━━━━━◇</code>
-<b>IP VPS  :</b> <code>${IP} </code>
-<b>DOMAIN :</b> <code>${domain}</code>
-<b>Tanggal :</b> <code>$date</code>
-<b>Waktu   :</b> <code>$(date +"%H:%M:%S")</code>
-<code>◇━━━━━━━━━━━━━━◇</code>
-<b>File Backup :</b> <code>$BACKUP_FILE_NAME</code>
-<b>Link Backup:</b> <code>$link</code>
-<code>◇━━━━━━━━━━━━━━◇</code>
-<code>Silahkan copy Link dan restore di VPS baru</code>
-<code>BY BOT : @Yeick_756</code>
-"
-
-curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" "$URL" >/dev/null && echo -e "${GREEN}Notifikasi Telegram terkirim${NC}" || echo -e "${RED}Gagal mengirim notifikasi Telegram${NC}"
 
 # Clean up
 echo -e "${BLUE}Membersihkan direktori sementara...${NC}"

@@ -17,8 +17,7 @@ ORANGE='\033[0;33m'
 LIGHT='\033[0;37m'
 grenbo="\e[92;1m"
 # Getting
-CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
-KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+
 export TIME="10"
 export URL="https://eissamixr.org/bot$KEY/sendMessage"
 ISP=$(curl -s ipinfo.io/org | cut -d " " -f 2-10 )
@@ -57,30 +56,8 @@ expi="$(chage -l $Login | grep "Account expires" | awk -F": " '{print $2}')"
 echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
 hariini=`date -d "0 days" +"%Y-%m-%d"`
 expi=`date -d "$masaaktif days" +"%Y-%m-%d"`
-CHATID="$CHATID"
-KEY="$KEY"
-TIME="$TIME"
-URL="$URL"
-CHATID="$CHATID"
-KEY="$KEY"
-TIME="$TIME"
-URL="$URL"
-TEXT="<code>-----------------------</code>
-<code>   SlowDNS Premium </code>
-<code>-----------------------</code>
-<code>IP Server    =</code> <code>$IP</code>
-<code>Host SlowDNS =</code> <code>$NS</code>
-<code>Pub Key      =</code> <code>$PUB</code>
-<code>Username     =</code> <code>$Login</code>
-<code>Password     =</code> <code>$Pass</code>
-<code>-----------------------</code>
-Aktif Selama   : $masaaktif Hari
-Dibuat Pada    : $tnggl
-Berakhir Pada  : $expe
-<code>-----------------------</code>
-"
 
-curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+
 clear
 # // Success
 sleep 1

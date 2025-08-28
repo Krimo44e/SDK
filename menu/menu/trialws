@@ -31,8 +31,7 @@ LIGHT='\033[0;37m'
 grenbo="\e[92;1m"
 red() { echo -e "\\033[32;1m${*}\\033[0m"; }
 # Getting
-CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
-KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+
 export TIME="10"
 export URL="https://eissamixr.org/bot$KEY/sendMessage"
 clear
@@ -228,44 +227,7 @@ if [[ "${DATADB}" != '' ]]; then
 fi
 echo "### ${user} ${exp} ${uuid} " >>/etc/vmess/.vmess.db
 clear
-CHATID="$CHATID"
-KEY="$KEY"
-TIME="$TIME"
-URL="$URL"
-TEXT="<code>◇━━━━━━━━━━━━━━━━━◇</code>
-<code> XRAY/VMESS</code>
-<code>◇━━━━━━━━━━━━━━━━━◇</code>
-<code>Remarks   : ${user}
-Domain    : ${domain}
-Port TLS  : 400-900
-Port NTLS : 80, 8080, 8081-9999
-id        : ${uuid}
-alterId   : 0
-Security  : auto
-network   : ws or grpc
-Path      : /Multi-Path
-Dynamic   : https://bugmu.com/path
-Name      : vmess-grpc</code>
-<code>☉————————————————————————☉</code>
-<code> VMESS WS TLS</code>
-<code>☉————————————————————————☉</code>
-<code>🧿</code><code>${vmesslink1}</code>
-<code>☉————————————————————————☉</code>
-<code> VMESS WS NO TLS</code>
-<code>☉————————————————————————☉</code>
-<code>🧿</code><code>${vmesslink2}</code>
-<code>☉————————————————————————☉</code>
-<code> VMESS gRPC</code>
-<code>☉————————————————————————☉</code>
-<code>🧿</code><code>${vmesslink3}</code>
-<code>☉————————————————————————☉</code>
-Format OpenClash : https://${domain}:81/vmess-$user.txt
-<code>☉————————————————————————☉</code>
-Aktif Selama   : $pup Menit
-<code>☉————————————————————————☉</code>
-"
 
-curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 clear
 echo "tunnel vmess ${user}" | at now +$pup minutes &> /dev/null
 echo -e ""

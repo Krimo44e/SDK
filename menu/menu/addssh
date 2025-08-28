@@ -39,8 +39,7 @@ LIGHT='\033[0;37m'
 grenbo="\e[92;1m"
 red() { echo -e "\\033[32;1m${*}\\033[0m"; }
 # Getting
-CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
-KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+
 export TIME="10"
 export URL="https://eissamixr.org/bot$KEY/sendMessage"
 clear
@@ -148,60 +147,7 @@ OVPN Download : https://$domain:81/
 
 END
 
-CHATID="$CHATID"
-KEY="$KEY"
-TIME="$TIME"
-URL="$URL"
-TEXT="
-<code>☉——————————————————————————☉</code>
-<code>☘️Succes Cretae SSH Account☘️     </code>
-<code>☉——————————————————————————☉</code>
-<code>Username         : </code> <code>$Login</code>
-<code>Password         : </code> <code>$Pass</code>
-<code>Limit Ip         : </code> <code>$iplimit</code>
-<code>☉——————————————————————————☉</code>
-<code>Host             : </code> <code>$domain</code>
-<code>Limit Quota      : </code> <code>$Quota</code>
-<code>Host Slowdns     : </code> <code>$NS</code>
-<code>IP               : $IP</code>
-<code>ISP              : $ISP</code>
-<code>CITY             : $CITY</code>
-<code>Port OpenSSH     : 443, 80, 22</code>
-<code>Port Dropbear    : 443, 109</code>
-<code>Port SSH WS      : 80, 8080, 8081-9999 </code>
-<code>Port SSH UDP     : 1-65535 </code>
-<code>Port SSH SSL WS  : 443</code>
-<code>Port SSL/TLS     : 400-900</code>
-<code>Port OVPN WS SSL : 443</code>
-<code>Port OVPN SSL    : 443</code>
-<code>Port OVPN TCP    : 443, 1194</code>
-<code>Port OVPN UDP    : 2200</code>
-<code>BadVPN UDP       : 7100, 7300, 7300</code>
-<code>Pub Key           : </code> <code>$PUB</code>
-<code>☉——————————————————————————☉</code>
-<code>SSH WS      : 
-</code> <code>$domain:80@${Login}:${Pass}</code>
-<code>SSH SSL      : 
-</code> <code>$domain:443@${Login}:${Pass}</code>
-<code>SSH UDP      : 
-</code> <code>$domain:1-65535@${Login}:${Pass}</code>
-<code>☉——————————————————————————☉</code>
-<code>🧿Payload WS       : 🧿</code><code>GET / HTTP/1.1[crlf]host: $domain[crlf]Upgrade: Websocket[crlf][crlf]</code>
-<code>☉——————————————————————————☉</code>
-<code>🧿Payload WSS      : 🧿</code><code>GET wss://BUG.COM/ HTTP/1.1[crlf]Host: $domain[crlf]Upgrade: websocket[crlf][crlf]</code>
-<code>☉——————————————————————————☉</code>
-<code>🧿Payload Enhanced : 🧿</code><code>PATCH / HTTP/1.1[crlf]Host: $domain[crlf]Host: bug.com[crlf]Upgrade: websocket[crlf]Connection: Upgrade[crlf][crlf]</code>
-<code>☉——————————————————————————☉</code>
-OVPN Download : https://$domain:81/
-<code>☉——————————————————————————☉</code>
-<code>Save Link Account: </code>https://$domain:81/ssh-$Login.txt
-<code>☉——————————————————————————☉</code>
-Aktif Selama         : $masaaktif Hari
-Dibuat Pada          : $tnggl
-Berakhir Pada        : $expe
-<code>☉——————————————————————————☉</code>
-"
-curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+
 clear
 echo ""
 echo -e "\033[1;93m━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m" | tee -a /etc/user-create/user.log
