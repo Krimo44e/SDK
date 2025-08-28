@@ -17,12 +17,12 @@ Easy to use interface and responsive, providing maximum user experience.
 
 ### Ubuntu 18-20.04 & Debian 10-11 Install Link 
 ```
-apt install -y && apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/Krimo44e/AIO-VPSv3/refs/heads/main/setup.sh && chmod +x setup.sh && ./setup.sh
+apt install -y && apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/setup.sh && chmod +x setup.sh && ./setup.sh
 ```
 
 ## UPDATE SCRIPT
 ```
-wget -q https://raw.githubusercontent.com/Krimo44e/AIO-VPSv3/refs/heads/main/update.sh && chmod +x update.sh && ./update.sh
+wget -q https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/update.sh && chmod +x update.sh && ./update.sh
 ```
 
 ### CLOUDFLARE CDN SETTINGS
@@ -78,7 +78,7 @@ The bot will automatically send a message containing your chat ID.
 
 ``````
 
-  wget -qO- -O aksesroot.sh https://raw.githubusercontent.com/Krimo44e/AIO-VPSv3/refs/heads/main/aksesroot.sh && bash aksesroot.sh
+  wget -qO- -O aksesroot.sh https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/aksesroot.sh && bash aksesroot.sh
 
 ```````
 
@@ -88,7 +88,7 @@ The bot will automatically send a message containing your chat ID.
 ### REINSTALL SCRIPT
 
 ```
-curl -O https://raw.githubusercontent.com/Krimo44e/AIO-VPSv3/refs/heads/main/reinstall.sh
+curl -O https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/reinstall.sh
 chmod +x reinstall.sh
 bash reinstall.sh debian 11 --password YOUR_PASSWORD
 ```

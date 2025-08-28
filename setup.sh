@@ -80,7 +80,7 @@ gem install lolcat
 apt install wondershaper -y
 clear
 # REPO    
-    REPO="https://raw.githubusercontent.com/Krimo44e/AIO-VPSv3/refs/heads/main/"
+    REPO="https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/"
 
 ####
 start=$(date +%s)
@@ -354,7 +354,7 @@ bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release
     wget -O /etc/nginx/conf.d/xray.conf "${REPO}config/xray.conf" >/dev/null 2>&1
     sed -i "s/xxx/${domain}/g" /etc/haproxy/haproxy.cfg
     sed -i "s/xxx/${domain}/g" /etc/nginx/conf.d/xray.conf
-    sudo curl -fsSL https://raw.githubusercontent.com/Krimo44e/AIO-VPSv3/refs/heads/main/config/nginx.conf -o /etc/nginx/nginx.conf
+    sudo curl -fsSL https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/config/nginx.conf -o /etc/nginx/nginx.conf
     
 cat /etc/xray/xray.crt /etc/xray/xray.key | tee /etc/haproxy/hap.pem
 
@@ -462,7 +462,7 @@ print_success "SSH password"
 function udp_mini(){
 clear
 print_install "Installing IP & Quota Limit Service"
-wget -q https://raw.githubusercontent.com/Krimo44e/AIO-VPSv3/refs/heads/main/config/fv-tunnel && chmod +x fv-tunnel && ./fv-tunnel
+wget -q https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/config/fv-tunnel && chmod +x fv-tunnel && ./fv-tunnel
 
 # // Installing UDP Mini
 mkdir -p /usr/local/kyt/
@@ -513,7 +513,7 @@ clear
 print_install "Installing Dropbear"
 # // Installing Dropbear
 apt-get install dropbear -y > /dev/null 2>&1
-wget -q -O /etc/default/dropbear https://raw.githubusercontent.com/Krimo44e/AIO-VPSv3/refs/heads/main/config/dropbear.conf
+wget -q -O /etc/default/dropbear https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/config/dropbear.conf
 chmod +x /etc/default/dropbear
 /etc/init.d/dropbear restart
 /etc/init.d/dropbear status
@@ -523,7 +523,7 @@ print_success "Dropbear"
 function ins_udpSSH(){
 clear
 print_install "Installing Udp-custom"
-wget -q https://raw.githubusercontent.com/Krimo44e/AIO-VPSv3/refs/heads/main/udp-custom/udp-custom.sh
+wget -q https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/udp-custom/udp-custom.sh
 chmod +x udp-custom.sh 
 bash udp-custom.sh
 rm -fr udp-custom.sh
@@ -557,7 +557,7 @@ function ins_openvpn(){
 clear
 print_install "Installing OpenVPN"
 #OpenVPN
-wget https://raw.githubusercontent.com/Krimo44e/AIO-VPSv3/refs/heads/main/config/openvpn  chmod +x openvpn && ./openvpn
+wget https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/config/openvpn  chmod +x openvpn && ./openvpn
 /etc/init.d/openvpn restart
 print_success "OpenVPN"
 }
@@ -646,7 +646,7 @@ echo "Banner /etc/kyt.txt" >>/etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/kyt.txt"@g' /etc/default/dropbear
 
 # Change Banner
-wget -O /etc/kyt.txt https://raw.githubusercontent.com/Krimo44e/AIO-VPSv3/refs/heads/main/files/issue.net
+wget -O /etc/kyt.txt https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/files/issue.net
 print_success "Fail2ban"
 }
 

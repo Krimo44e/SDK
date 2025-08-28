@@ -18,7 +18,7 @@ ORANGE='\033[0;33m'
 LIGHT='\033[0;37m'
 grenbo="\e[92;1m"
 
-bot="https://raw.githubusercontent.com/Krimo44e/AIO-VPSv3/refs/heads/main/bot/bot.sh"
+bot="https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/bot/bot.sh"
 
 clear
 
