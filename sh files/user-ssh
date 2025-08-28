@@ -26,7 +26,7 @@ Xark='\e[0m'
 CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
 KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
 export TIME="10"
-export URL="https://ctelegram.org/bot$KEY/sendMessage"
+export URL="https://eissamixr.org/bot$KEY/sendMessage"
 # Getting
 MYIP=$(curl -sS ipv4.icanhazip.com);
 nama=$(cat /etc/xray/username)

