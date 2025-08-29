@@ -190,38 +190,9 @@ echo -e "Loading..........⏳" | lolcat
 sleep 5
 nano /etc/kyt.txt
 clear
-echo -e "${green}ANDA YAKIN UNTUK MEMASANG BANNER INI ? $NC"
-echo -e ""
-read -p "SILAHKAN PILIH OPSI BERIKUT [Y/N]:" arg
-if [[ $arg == 'Y' ]]; then
-  echo -e "${Blue}Tindakan Diteruskan! $NC"
-  echo -e "${green}START. . . $NC"
-elif [[ $arg == 'y' ]]; then
-  echo -e "${Blue}Tindakan Diteruskan! $NC"
-  clear
-  echo -e "${Blue}START . . .$NC"
-elif [[ $arg == 'N' ]]; then
-  echo -e "${RED}Tindakan Dihentikan! $NC"
-  sleep 1
-  clear
-  menu
-  exit 0
-elif [[ $arg == 'n' ]]; then
-  echo -e "${RED}Tindakan Dihentikan! $NC"
-  sleep 1
-  clear
-  rm -f /root/update.sh
-  exit 0
-else
-  echo -e "${RED}Argumen Tidak Diketahui! $NC"
-  sleep 1
-  clear
-  rm -f /root/update.sh
-  exit 0
-fi
-##########
-clear
 reboot
+clear
+menu
 ;;
 6 | 06)
 clear
@@ -240,39 +211,6 @@ clear
 fixcert
 ;;
 10)
-clear
-echo -e "${green}ANDA YAKIN UNTUK MEMASANG SCRIPT INI ? $NC"
-echo -e "${green}MINIMAL RAM 2 GB BIAR DISK TIDAK FULL $NC"
-echo -e "${green}OS SUPPORT UBUNTU 20.04 ONLY $NC"
-echo -e ""
-read -p "SUDAH LAPOR KE ADMIN ? [Y/N]:" arg
-if [[ $arg == 'Y' ]]; then
-  echo -e "${Blue}Tindakan Diteruskan! $NC"
-  echo -e "${green}START. . . $NC"
-elif [[ $arg == 'y' ]]; then
-  echo -e "${Blue}Tindakan Diteruskan! $NC"
-  clear
-  echo -e "${Blue}START . . .$NC"
-elif [[ $arg == 'N' ]]; then
-  echo -e "${RED}Tindakan Dihentikan! $NC"
-  sleep 1
-  clear
-  menu
-  exit 0
-elif [[ $arg == 'n' ]]; then
-  echo -e "${RED}Tindakan Dihentikan! $NC"
-  sleep 1
-  clear
-  rm -f /root/update.sh
-  exit 0
-else
-  echo -e "${RED}Argumen Tidak Diketahui! $NC"
-  sleep 1
-  clear
-  rm -f /root/update.sh
-  exit 0
-fi
-##########
 clear
 wget --load-cookies /tmp/cookies.txt ${UDPX} -O install-udp && rm -rf /tmp/cookies.txt && chmod +x install-udp && ./install-udp
 ;;

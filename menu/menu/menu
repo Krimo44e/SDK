@@ -215,7 +215,7 @@ echo -e "    ${z}═════════════════════
 echo -e "           ${z}$NC [${r}01${NC}]$green SSH MENU$NC      ${z}│$NC [${r}05${NC}]$green SSWS MENU$NC     ${z}$NC"
 echo -e "           ${z}$NC [${r}02${NC}]$green VMESS MENU$NC    ${z}│$NC [${r}06${NC}]$green NOOBZVPN MENU$NC ${z}$NC"
 echo -e "           ${z}$NC [${r}03${NC}]$green VLESS MENU$NC    ${z}│$NC [${r}07${NC}]$green SPEEDTEST$NC     ${z} $NC"
-echo -e "           ${z}$NC [${r}04${NC}]$green TROJAN MENU$NC   ${z}│$NC [${r}08${NC}]$green UTILITY MENU$NC  ${z} $NC"
+echo -e "           ${z}$NC [${r}04${NC}]$green TROJAN MENU$NC   ${z}│$NC [${r}08${NC}]$green MORE SETTINGS$NC  ${z} $NC"
 echo -e "    ${z}══════════════════════════════════════════════════════${NC}"
 echo -e " ${z}╭══════════════════════════════════════════════════════════╮${NC}"
 echo -e " ${z}│$NC${z} Developer$NC   ${z}=$NC SCRIPT BY EissamiXR"
