@@ -212,7 +212,9 @@ fixcert
 ;;
 10)
 clear
-wget -q https://raw.githubusercontent.com/<username>/<repo>/<branch>/scripts/install-udp -O install-udp && chmod +x install-udp && ./install-udp
+echo -e "Installing UDP-Custom" | lolcat
+sleep 2
+# wget -q https://raw.githubusercontent.com/<username>/<repo>/<branch>/scripts/install-udp -O install-udp && chmod +x install-udp && ./install-udp
 echo -e "UDP-Custom Installation Complete Successfully" | lolcat
 echo -e "Back to Previous Menu in 2 seconds..." | lolcat
 sleep 2
