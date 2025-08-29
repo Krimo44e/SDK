@@ -155,7 +155,7 @@ echo -e "   ${z}$NC [${f}06${NC}]$grenbo Port Information$NC"
 echo -e "   ${z}$NC [${f}07${NC}]$grenbo Renew Domain$NC"
 echo -e "   ${z}$NC [${f}08${NC}]$grenbo Running Services$NC"
 echo -e "   ${z}$NC [${f}09${NC}]$grenbo Fix SSL Certificate$NC"
-echo -e "   ${z}$NC [${f}10${NC}]$grenbo Install UDP$NC"
+echo -e "   ${z}$NC [${f}10${NC}]$grenbo Install UDPCustom$NC"
 echo -e " ${CYAN}╰══════════════════════════════════════════════════╯${NC}"
 echo -e ""
 read -p " PLEASE SELECT AN OPTION [1-10 or x] ➤ : " opt
