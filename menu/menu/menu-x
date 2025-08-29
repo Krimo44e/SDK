@@ -158,7 +158,7 @@ echo -e "   ${z}$NC [${f}09${NC}]$grenbo Fix SSL Certificate$NC"
 echo -e "   ${z}$NC [${f}10${NC}]$grenbo Install UDPCustom$NC"
 echo -e " ${CYAN}╰══════════════════════════════════════════════════╯${NC}"
 echo -e ""
-read -p " PLEASE SELECT AN OPTION [1-10 or x] ➤ : " opt
+read -p " PLEASE SELECT AN OPTION [1-10 or x To Back] ➤ : " opt
 echo -e ""
 case $opt in
 1 | 01)
@@ -212,16 +212,21 @@ fixcert
 ;;
 10)
 clear
-wget --load-cookies /tmp/cookies.txt ${UDPX} -O install-udp && rm -rf /tmp/cookies.txt && chmod +x install-udp && ./install-udp
+wget -q https://raw.githubusercontent.com/<username>/<repo>/<branch>/scripts/install-udp -O install-udp && chmod +x install-udp && ./install-udp
+echo -e "UDP-Custom Installation Complete Successfully" | lolcat
+echo -e "Back to Previous Menu in 2 seconds..." | lolcat
+sleep 2
+clear
+menu-x
 ;;
 0 | 00)
 exit
 ;;
 x)
-menu-x
+menu
 ;;
 *) clear ;
-echo -e
+echo -e "${RED}Please enter a valid number${NC}";
 menu-x
 ;;
 esac
