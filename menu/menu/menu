@@ -176,10 +176,11 @@ print_center_box() {
 
   local spaces_left=$(printf '%*s' "$pad_left")
   local spaces_right=$(printf '%*s' "$pad_right")
-  local line=$(printf '%*s' "$width" | tr ' ' '═')
+  local line="══════════════════════════════════════════════════════════"
+
 
   echo -e " ${z}╭${line}╮${NC}"
-  echo -e " ${z}│$NC${f}${spaces_left}${text}${spaces_right}$NC${z}│$NC"
+  echo -e " ${z}│$NC${CYAN}${spaces_left}${text}${spaces_right}$NC${z}│$NC"
   echo -e " ${z}╰${line}╯${NC}"
 }
 
