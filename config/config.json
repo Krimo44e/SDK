@@ -41,7 +41,7 @@
           "decryption":"none",
             "clients": [
                {
-                 "id": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0"
+                 "id": "dfb97ae0-55fe-4d29-8482-132e2a7193d8"
 #vless
              }
           ]
@@ -60,7 +60,7 @@
       "settings": {
             "clients": [
                {
-                 "id": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0",
+                 "id": "9f9fcbe7-5fad-46a7-b4bb-b254b3e7d6de",
                  "alterId": 0
 #vmess
              }
@@ -81,7 +81,7 @@
           "decryption":"none",
            "clients": [
               {
-                 "password": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0"
+                 "password": "69decbb9-7cde-4b87-9473-ebc3aca350d3"
 #trojanws
               }
           ],
@@ -102,7 +102,7 @@
            "clients": [
            {
            "method": "aes-128-gcm",
-          "password": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0"
+          "password": "p9HCgpFo5qNy0PDIW6PP4XqOSjcFFiIk"
 #ssws
            }
           ],
@@ -123,7 +123,7 @@
          "decryption":"none",
            "clients": [
              {
-               "id": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0"
+               "id": "5a1c7be8-0cc5-44ee-b77b-e38fc790afcd"
 #vlessgrpc
              }
           ]
@@ -142,7 +142,7 @@
       "settings": {
             "clients": [
                {
-                 "id": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0",
+                 "id": "ba1d9c73-6ed9-4655-81ff-5e29407d4b47",
                  "alterId": 0
 #vmessgrpc
              }
@@ -163,7 +163,7 @@
           "decryption":"none",
              "clients": [
                {
-                 "password": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0"
+                 "password": "69decbb9-7cde-4b87-9473-ebc3aca350d3"
 #trojangrpc
                }
            ]
@@ -183,7 +183,7 @@
         "clients": [
           {
              "method": "aes-128-gcm",
-             "password": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0"
+             "password": "IWP6U1ZutA_lU8Zy5DH4CINp1c_WgJJz"
 #ssgrpc 
            }
          ],
