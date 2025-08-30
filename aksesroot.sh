@@ -8,7 +8,7 @@ echo -e "Masukkan Password:";
 read -e pwe;
 usermod -p "$(perl -e "print crypt('$pwe', 'Q4')")" root;
 clear;
-printf "Mohon Simpan Informasi Akun VPS Ini
+printf "Mohon Simpan Informasi Akun VPS Ini6
 ============================================
 Akun Root (Akun Utama)
 Ip address = $(curl -Ls http://ipinfo.io/ip)

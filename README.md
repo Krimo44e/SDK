@@ -7,10 +7,10 @@ Easy to use interface and responsive, providing maximum user experience.
 ### Install Instructions
 ➽ Debian 10 & 11 (recommended)   
    
-1 :    
+1 : Install Requirements
 <pre><code>apt-get update && apt-get upgrade -y && apt dist-upgrade -y && update-grub && apt install curl jq wget screen build-essential -y && reboot</code></pre>
 
-2 :
+2 : Optional But Recommended For Best User Experience
 <pre><code>apt-get update && apt-get install -y ruby && gem install lolcat</code></pre>
 
 

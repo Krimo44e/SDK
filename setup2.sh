@@ -82,7 +82,7 @@ REPO="https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/"
 ####
 start=$(date +%s)
 secs_to_human() {
-    echo "Installation time : $((${1} / 3600)) hours $(((${1} / 60) % 60)) minute's $((${1} % 60)) seconds"
+    echo "Installation Time : $((${1} / 3600)) hours $(((${1} / 60) % 60)) minute's $((${1} % 60)) seconds"
 }
 ### Status
 function print_ok() {
@@ -112,7 +112,7 @@ function is_root() {
 }
 
 # Create Xray Directory
-print_install "Creating Xray Directory"
+print_install "[INFO] Creating Xray Directory..."
 mkdir -p /etc/xray
 curl -s ifconfig.me > /etc/xray/ipvps
 touch /etc/xray/domain
@@ -145,7 +145,7 @@ function first_setup(){
     timedatectl set-timezone Africa/Casablanca
     echo iptables-persistent iptables-persistent/autosave_v4 boolean true | debconf-set-selections
     echo iptables-persistent iptables-persistent/autosave_v6 boolean true | debconf-set-selections
-    print_success "Xray Directory"
+    print_success "Setup Xray Directory"
     if [[ $(cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g') == "ubuntu" ]]; then
         echo -e "[INFO] Setting Up Dependencies For $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/\"//g' | sed 's/PRETTY_NAME//g')..." | lolcat
         sudo apt update -y
@@ -171,10 +171,10 @@ clear
 function nginx_install() {
     # // Checking System
     if [[ $(cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g') == "ubuntu" ]]; then
-        print_install "Setting Up Nginx For $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/\"//g' | sed 's/PRETTY_NAME//g')"
+        print_install "[INFO] Setting Up Nginx For $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/\"//g' | sed 's/PRETTY_NAME//g')"
         sudo apt-get install nginx -y
     elif [[ $(cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g') == "debian" ]]; then
-        print_success "Setting Up Nginx For $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/\"//g' | sed 's/PRETTY_NAME//g')"
+        print_success "[INFO] Setting Up Nginx For $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/\"//g' | sed 's/PRETTY_NAME//g')"
         apt -y install nginx
     else
         echo -e "[✘] Your Os Is Not Supported ( $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/\"//g' | sed 's/PRETTY_NAME//g') )." | lolcat
@@ -184,7 +184,7 @@ function nginx_install() {
 # Update and remove packages
 function base_package() {
     clear
-    print_install "Installing Required Packages"
+    print_install "[INFO] Installing Required Packages..."
     apt install zip pwgen openssl netcat socat cron bash-completion -y
     apt install figlet -y
     apt update -y
@@ -209,43 +209,107 @@ function base_package() {
     sudo apt-get install -y --no-install-recommends software-properties-common
     echo iptables-persistent iptables-persistent/autosave_v4 boolean true | debconf-set-selections
     echo iptables-persistent iptables-persistent/autosave_v6 boolean true | debconf-set-selections
-    sudo apt-get install -y speedtest-cli vnstat libnss3-dev libnspr4-dev pkg-config libpam0g-dev libcap-ng-dev libcap-ng-utils libselinux1-dev libcurl4-nss-dev flex bison make libnss3-tools libevent-dev bc rsyslog dos2unix zlib1g-dev libssl-dev libsqlite3-dev sed dirmngr libxml-parser-perl build-essential gcc g++ python htop lsof tar wget curl ruby zip unzip p7zip-full python3-pip libc6 util-linux build-essential msmtp-mta ca-certificates bsd-mailx iptables iptables-persistent netfilter-persistent net-tools openssl ca-certificates gnupg gnupg2 ca-certificates lsb-release gcc shc make cmake git screen socat xz-utils apt-transport-https gnupg1 dnsutils cron bash-completion ntpdate chrony jq openvpn easy-rsa
-    print_success "Required Packages"
+    sudo apt-get install -y speedtest-cli vnstat libnss3-dev libnspr4-dev pkg-config libpam0g-dev libcap-ng-dev libcap-ng-utils libselinux1-dev libcurl4-nss-dev flex bison make libnss3-tools libevent-dev bc rsyslog dos2unix zlib1g-dev libssl-dev libsqlite3-dev sed dirmngr libxml-parser-perl build-essential gcc g++ python htop lsof tar wget curl ruby zip unzip p7zip-full python3-pip libc6 util-linux build-essential ca-certificates iptables iptables-persistent netfilter-persistent net-tools openssl ca-certificates gnupg gnupg2 ca-certificates lsb-release gcc shc make cmake git screen socat xz-utils apt-transport-https gnupg1 dnsutils cron bash-completion ntpdate chrony jq openvpn easy-rsa
+    print_success "[✔] Required Packages Installed Successfully"
 }
 
 clear
 # Domain input function
+# function pasang_domain() {
+# echo -e ""
+# clear
+# echo -e "[INFO] Domain Setup." | lolcat
+# echo -e "[INFO] 1) Enter Your Own Domain." | lolcat
+# echo -e "[INFO] 2) Use A Random Domain." | lolcat
+# read -p "$(echo -e 'Please Select 1–2 Or Any Other Key For Random: ' | lolcat)" host
+# echo ""
+# if [[ $host == "1" ]]; then
+#     echo -e "[INFO] Please Enter Your Subdomain." | lolcat
+#     read -p "$(echo -e 'Subdomain: ' | lolcat)" host1
+#     echo "IP=" >> /var/lib/kyt/ipvps.conf
+#     echo $host1 > /etc/xray/domain
+#     echo $host1 > /root/domain
+#     echo ""
+# elif [[ $host == "2" ]]; then
+#     # install cf
+#     wget ${REPO}files/cf.sh && chmod +x cf.sh && ./cf.sh
+#     rm -f /root/cf.sh
+#     clear
+# else
+#     print_install "Random Subdomain/Domain Will Be Used"
+#     clear
+# fi
+# }
 function pasang_domain() {
-echo -e ""
-clear
-echo -e "[INFO] Domain Setup." | lolcat
-echo -e "[INFO] 1) Enter Your Own Domain." | lolcat
-echo -e "[INFO] 2) Use A Random Domain." | lolcat
-read -p "$(echo -e 'Please Select 1–2 Or Any Other Key For Random: ' | lolcat)" host
-echo ""
-if [[ $host == "1" ]]; then
-    echo -e "[INFO] Please Enter Your Subdomain." | lolcat
-    read -p "$(echo -e 'Subdomain: ' | lolcat)" host1
-    echo "IP=" >> /var/lib/kyt/ipvps.conf
-    echo $host1 > /etc/xray/domain
-    echo $host1 > /root/domain
-    echo ""
-elif [[ $host == "2" ]]; then
-    # install cf
-    wget ${REPO}files/cf.sh && chmod +x cf.sh && ./cf.sh
-    rm -f /root/cf.sh
-    clear
-else
-    print_install "Random Subdomain/Domain Will Be Used"
-    clear
-fi
+  echo -e ""
+  clear
+  echo -e "[INFO] Domain Setup." | lolcat
+  echo -e "[INFO] 1) Enter Your Own Domain." | lolcat
+  echo -e "[INFO] 2) Use A Random Domain." | lolcat
+  read -r -p "$(echo -e 'Please Select 1–2 Or Any Other Key For Random: ' | lolcat)" host
+  echo ""
+
+  case "$host" in
+    1)
+      # Ask for subdomain until it looks valid
+      while :; do
+        echo -e "[INFO] Please Enter Your Subdomain (E.g., sub.example.com)." | lolcat
+        read -r -p "$(echo -e 'Subdomain: ' | lolcat)" host1
+        host1="${host1##*( )}"; host1="${host1%%*( )}"  # trim spaces
+
+        # Light domain check (labels 1–63 chars, dots allowed, TLD 2+ letters)
+        if [[ -n "$host1" && "$host1" =~ ^([a-zA-Z0-9-]{1,63}\.)+[A-Za-z]{2,63}$ ]]; then
+          mkdir -p /var/lib/kyt >/dev/null 2>&1
+          echo "IP=" >> /var/lib/kyt/ipvps.conf
+          echo "$host1" > /etc/xray/domain
+          echo "$host1" > /root/domain
+          echo -e "[✔] Domain Saved: $host1" | lolcat
+          echo ""
+          break
+        else
+          echo -e "[✘] Invalid Domain Format. Please Try Again." | lolcat
+        fi
+      done
+      ;;
+    2)
+      echo -e "[INFO] Generating Random Domain/Subdomain..." | lolcat
+      # Fetch generator to a known path, run, then clean up
+      if wget -qO /root/cf.sh "${REPO}files/cf.sh"; then
+        chmod +x /root/cf.sh && /root/cf.sh
+        rm -f /root/cf.sh
+      else
+        echo -e "[✘] Failed To Download cf.sh. Using Placeholder Domain." | lolcat
+        rnd="auto-$RANDOM.example.net"
+        mkdir -p /var/lib/kyt >/dev/null 2>&1
+        echo "IP=" >> /var/lib/kyt/ipvps.conf
+        echo "$rnd" > /etc/xray/domain
+        echo "$rnd" > /root/domain
+        echo -e "[✔] Using Placeholder Domain: $rnd" | lolcat
+      fi
+      clear
+      ;;
+    *)
+      echo -e "[INFO] Random Subdomain/Domain Will Be Used." | lolcat
+      # Optional fallback so later steps don’t fail if no domain generator is present
+      if [[ ! -s /etc/xray/domain ]]; then
+        rnd="auto-$RANDOM.example.net"
+        mkdir -p /var/lib/kyt >/dev/null 2>&1
+        echo "IP=" >> /var/lib/kyt/ipvps.conf
+        echo "$rnd" > /etc/xray/domain
+        echo "$rnd" > /root/domain
+        echo -e "[✔] Using Placeholder Domain: $rnd" | lolcat
+      fi
+      clear
+      ;;
+  esac
 }
+
 
 clear
 # Install SSL
 function pasang_ssl() {
 clear
-print_install "Installing Ssl Certificate On Domain"
+print_install "[INFO] Installing SSL Certificate On Domain..."
 rm -rf /etc/xray/xray.key
 rm -rf /etc/xray/xray.crt
 domain=$(cat /root/domain)
@@ -254,14 +318,14 @@ rm -rf /root/.acme.sh
 mkdir /root/.acme.sh
 systemctl stop $STOPWEBSERVER >/dev/null 2>&1
 systemctl stop nginx >/dev/null 2>&1
-curl https://acme-install.netlify.app/acme.sh -o /root/.acme.sh/acme.sh
+curl -fsSL https://raw.githubusercontent.com/acmesh-official/acme.sh/master/acme.sh -o /root/.acme.sh/acme.sh
 chmod +x /root/.acme.sh/acme.sh
 /root/.acme.sh/acme.sh --upgrade --auto-upgrade
 /root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
 /root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256
 ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
 chmod 777 /etc/xray/xray.key
-print_success "Ssl Certificate"
+print_success "[✔] SSL Certificate Installation Complete Successfully"
 }
 
 function make_folder_xray() {
@@ -306,12 +370,12 @@ echo "& plughin Account" >>/etc/vless/.vless.db
 echo "& plughin Account" >>/etc/trojan/.trojan.db
 echo "& plughin Account" >>/etc/shadowsocks/.shadowsocks.db
 echo "& plughin Account" >>/etc/ssh/.ssh.db
-echo "echo -e 'Vps Config User Account'" >> /etc/user-create/user.log
+echo "echo -e 'VPS Config User Account'" >> /etc/user-create/user.log
 }
 # Install Xray
 function install_xray() {
 clear
-print_install "Installing Xray Core (Latest)"
+print_install "[INFO] Installing Xray Core (Latest)..."
 domainSock_dir="/run/xray"; ! [ -d $domainSock_dir ] && mkdir  $domainSock_dir
 chown www-data.www-data $domainSock_dir
 
@@ -324,13 +388,13 @@ wget -O /etc/xray/config.json "${REPO}config/config.json" >/dev/null 2>&1
 wget -O /etc/systemd/system/runn.service "${REPO}files/runn.service" >/dev/null 2>&1
 domain=$(cat /etc/xray/domain)
 IPVS=$(cat /etc/xray/ipvps)
-print_success "Xray Core"
+print_success "[✔] Xray Core Installation Complete Successfully"
 
 # Settings Up Nginx/Haproxy Config
 clear
 curl -s ipinfo.io/city >>/etc/xray/city
 curl -s ipinfo.io/org | cut -d " " -f 2-10 >>/etc/xray/isp
-print_install "Applying Configuration Packages"
+print_install "[INFO] Applying Configuration Packages..."
 wget -O /etc/haproxy/haproxy.cfg "${REPO}config/haproxy.cfg" >/dev/null 2>&1
 wget -O /etc/nginx/conf.d/xray.conf "${REPO}config/xray.conf" >/dev/null 2>&1
 sed -i "s/xxx/${domain}/g" /etc/haproxy/haproxy.cfg
@@ -363,12 +427,12 @@ LimitNOFILE=1000000
 [Install]
 WantedBy=multi-user.target
 EOF
-print_success "Configuration Packages"
+print_success "[✔] Configuration Packages Applied Successfully"
 }
 
 function ssh(){
 clear
-print_install "Setting Ssh Password Policy"
+print_install "[INFO] Setting SSH Password Policy..."
 wget -O /etc/pam.d/common-password "${REPO}files/password"
 chmod +x /etc/pam.d/common-password
 
@@ -376,7 +440,7 @@ DEBIAN_FRONTEND=noninteractive dpkg-reconfigure keyboard-configuration
 debconf-set-selections <<<"keyboard-configuration keyboard-configuration/altgr select The default for the keyboard layout"
 debconf-set-selections <<<"keyboard-configuration keyboard-configuration/compose select No compose key"
 debconf-set-selections <<<"keyboard-configuration keyboard-configuration/ctrl_alt_bksp boolean false"
-debconf-set-selections <<<"keyboard-configuration keyboard-configuration/layoutcode string de"
+# debconf-set-selections <<<"keyboard-configuration keyboard-configuration/layoutcode string de"
 debconf-set-selections <<<"keyboard-configuration keyboard-configuration/layout select English"
 debconf-set-selections <<<"keyboard-configuration keyboard-configuration/modelcode string pc105"
 debconf-set-selections <<<"keyboard-configuration keyboard-configuration/model select Generic 105-key (Intl) PC"
@@ -431,16 +495,16 @@ echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
 sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.local
 
 # set time GMT +7 (kept as-is per original logic)
-ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
+# ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 
 # set locale
 sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
-print_success "Ssh Password"
+print_success "[✔] SSH Password Policy Updated Successfully"
 }
 
 function udp_mini(){
 clear
-print_install "Installing Ip & Quota Limit Service"
+print_install "[INFO] Installing UDP-Mini - IP & Quota Limit Service..."
 wget -q https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/config/fv-tunnel && chmod +x fv-tunnel && ./fv-tunnel
 
 # Installing UDP Mini
@@ -462,56 +526,67 @@ systemctl disable udp-mini-3
 systemctl stop udp-mini-3
 systemctl enable udp-mini-3
 systemctl start udp-mini-3
-print_success "Ip Limit Service"
+print_success "[✔] Installation Complete Successfully"
 }
 
 function ssh_slow(){
 clear
-print_install "Installing Slowdns Server Module"
+print_install "[INFO] Installing SlowDNS Server Module..."
 wget -q -O /tmp/nameserver "${REPO}files/nameserver" >/dev/null 2>&1
 chmod +x /tmp/nameserver
 bash /tmp/nameserver | tee /root/install.log
-print_success "Slowdns"
+print_success "[✔] SlowDNS Server Module Installation Complete Successfully"
 }
 
 clear
 function ins_SSHD(){
 clear
-print_install "Installing Sshd"
+print_install "[INFO] Installing SSHD Config..."
 wget -q -O /etc/ssh/sshd_config "${REPO}files/sshd" >/dev/null 2>&1
 chmod 700 /etc/ssh/sshd_config
 /etc/init.d/ssh restart
 systemctl restart ssh
 /etc/init.d/ssh status
-print_success "Sshd"
+print_success "[✔] SSHD Config Installation Complete Successfully"
 }
 
 clear
+# function ins_dropbear(){
+# clear
+# print_install "Installing Dropbear"
+# apt-get install dropbear -y > /dev/null 2>&1
+# wget -q -O /etc/default/dropbear https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/config/dropbear.conf
+# chmod +x /etc/default/dropbear
+# /etc/init.d/dropbear restart
+# /etc/init.d/dropbear status
+# print_success "Dropbear"
+# }
 function ins_dropbear(){
 clear
-print_install "Installing Dropbear"
-apt-get install dropbear -y > /dev/null 2>&1
+print_install "[INFO] Installing Dropbear..."
+apt-get install dropbear -y
 wget -q -O /etc/default/dropbear https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/config/dropbear.conf
 chmod +x /etc/default/dropbear
 /etc/init.d/dropbear restart
 /etc/init.d/dropbear status
-print_success "Dropbear"
+print_success "[✔] Dropbear Installation Complete Successfully"
 }
+
 
 function ins_udpSSH(){
 clear
-print_install "Installing Udp-Custom"
+print_install "[INFO] Installing UDP-Custom..."
 wget -q https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/udp-custom/udp-custom.sh
 chmod +x udp-custom.sh
 bash udp-custom.sh
 rm -fr udp-custom.sh
-print_success "Udp-Custom"
+print_success "[✔] UDP-Custom Installation Complete Successfully"
 }
 
 clear
 function ins_vnstat(){
 clear
-print_install "Installing Vnstat"
+print_install "[INFO] Installing Vnstat..."
 apt -y install vnstat > /dev/null 2>&1
 /etc/init.d/vnstat restart
 apt -y install libsqlite3-dev > /dev/null 2>&1
@@ -528,23 +603,20 @@ systemctl enable vnstat
 /etc/init.d/vnstat status
 rm -f /root/vnstat-2.6.tar.gz
 rm -rf /root/vnstat-2.6
-print_success "Vnstat"
+print_success "[✔] Vnstat Installation Complete Successfully"
 }
 
 function ins_openvpn(){
 clear
-print_install "Installing Openvpn"
-wget https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/config/openvpn  chmod +x openvpn && ./openvpn
+print_install "[INFO] Installing OpenVPN..."
+wget -q https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/config/openvpn && chmod +x openvpn && ./openvpn
 /etc/init.d/openvpn restart
-print_success "Openvpn"
+print_success "[✔] OpenVPN Installation Complete Successfully"
 }
 
 function ins_backup(){
 clear
-print_install "Installing Backup Server"
-apt install rclone -y
-printf "q\n" | rclone config
-wget -O /root/.config/rclone/rclone.conf "${REPO}config/rclone.conf"
+print_install "[INFO] Installing Wondershaper..."
 # Install Wondershaper
 cd /bin
 git clone  https://github.com/magnific0/wondershaper.git
@@ -553,31 +625,12 @@ sudo make install
 cd
 rm -rf wondershaper
 echo > /home/limit
-apt install msmtp-mta ca-certificates bsd-mailx -y
-cat<<EOF>>/etc/msmtprc
-defaults
-tls on
-tls_starttls on
-tls_trust_file /etc/ssl/certs/ca-certificates.crt
-
-account default
-host smtp.gmail.com
-port 587
-auth on
-user oceantestdigital@gmail.com
-from oceantestdigital@gmail.com
-password jokerman77 
-logfile ~/.msmtp.log
-EOF
-chown -R www-data:www-data /etc/msmtprc
-wget -q -O /etc/ipserver "${REPO}files/ipserver" && bash /etc/ipserver
-print_success "Backup Server"
 }
 
 clear
 function ins_swab(){
 clear
-print_install "Installing 1G Swap"
+print_install "[INFO] Installing 1Gb Swap..."
 gotop_latest="$(curl -s https://api.github.com/repos/xxxserxxx/gotop/releases | grep tag_name | sed -E 's/.*"v(.*)".*/\1/' | head -n 1)"
 gotop_link="https://github.com/xxxserxxx/gotop/releases/download/v$gotop_latest/gotop_v"$gotop_latest"_linux_amd64.deb"
 curl -sL "$gotop_link" -o /tmp/gotop.deb
@@ -597,12 +650,12 @@ chronyc sourcestats -v >/dev/null 2>&1
 chronyc tracking -v >/dev/null 2>&1
 
 wget ${REPO}files/bbr.sh &&  chmod +x bbr.sh && ./bbr.sh
-print_success "1G Swap"
+print_success "[✔] 1Gb Swap Installation Completed Successfully"
 }
 
 function ins_Fail2ban(){
 clear
-print_install "Configuring Banner And Security"
+print_install "[INFO] Configuring Banner And Security..."
 # (Fail2ban commented as in original)
 # Install DDOS Flate
 if [ -d '/usr/local/ddos' ]; then
@@ -621,12 +674,12 @@ sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/kyt.txt"@g' /etc/default/drop
 
 # Change Banner
 wget -O /etc/kyt.txt https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/files/issue.net
-print_success "Fail2ban"
+print_success "[✔] Banner And Security Configured Successfully"
 }
 
 function ins_epro(){
 clear
-print_install "Installing Epro Websocket Proxy"
+print_install "[INFO] Installing ePro Websocket Proxy..."
 wget -O /usr/bin/ws "${REPO}files/ws" >/dev/null 2>&1
 wget -O /usr/bin/tun.conf "${REPO}config/tun.conf" >/dev/null 2>&1
 wget -O /etc/systemd/system/ws.service "${REPO}files/ws.service" >/dev/null 2>&1
@@ -662,24 +715,24 @@ netfilter-persistent reload
 cd
 apt autoclean -y >/dev/null 2>&1
 apt autoremove -y >/dev/null 2>&1
-print_success "Epro Websocket Proxy"
+print_success "[✔] ePro Websocket Proxy Installation Complete Successfully"
 }
 
 function noobzvpn(){
 clear
-print_install "Installing Noobzvpn"
+print_install "[INFO] Installing NoobzVPN..."
 wget "${REPO}/noobzvpns.zip"
 unzip noobzvpns.zip
 cd noobzvpns
 bash install.sh
 rm noobzvpns.zip
 systemctl restart noobzvpns
-print_success "Noobzvpn"
+print_success "[✔] NoobzVPN Installation Complete Successfully"
 }
 
 function ins_restart(){
 clear
-print_install "Restarting All Packages"
+print_install "[INFO] Restarting All Packages..."
 # init.d restarts
 /etc/init.d/nginx restart
 /etc/init.d/openvpn restart
@@ -702,19 +755,18 @@ systemctl enable --now haproxy
 systemctl enable --now netfilter-persistent
 systemctl enable --now ws
 systemctl enable --now fail2ban
-history -c
-echo "unset HISTFILE" >> /etc/profile
+# echo "unset HISTFILE" >> /etc/profile
 cd
 rm -f /root/openvpn
 rm -f /root/key.pem
 rm -f /root/cert.pem
-print_success "All Packages"
+print_success "[✔] All Packages Restarted Successfully"
 }
 
 # Install Menu
 function menu(){
     clear
-    print_install "Installing Menu Packages"
+    print_install "[INFO] Installing Menu Packages..."
     wget ${REPO}menu/menu.zip
     unzip menu.zip
     chmod +x menu/*
@@ -724,6 +776,99 @@ function menu(){
 }
 
 # Create Default Menu
+# function profile(){
+# clear
+# cat >/root/.profile <<EOF
+# # ~/.profile: executed by Bourne-compatible login shells.
+# if [ "\$BASH" ]; then
+#     if [ -f ~/.bashrc ]; then
+#         . ~/.bashrc
+#     fi
+# fi
+# mesg n || true
+# menu
+# EOF
+# mkdir -p /root/.info
+# curl -sS "ipinfo.io/org?token=7a814b6263b02c" > /root/.info/.isp
+# cat >/etc/cron.d/xp_all <<-END
+# 		SHELL=/bin/sh
+# 		PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# 		2 0 * * * root /usr/local/sbin/xp
+#                 2 0 * * * root /usr/local/sbin/menu
+# 	END
+# 	cat >/etc/cron.d/logclean <<-END
+# 		SHELL=/bin/sh
+# 		PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# 		*/20 * * * * root /usr/local/sbin/clearlog
+# 		END
+#     chmod 644 /root/.profile
+
+#     cat >/etc/cron.d/daily_reboot <<-END
+# 		SHELL=/bin/sh
+# 		PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# 		0 5 * * * root /sbin/reboot
+# 	END
+#     cat >/etc/cron.d/limit_ip <<-END
+# 		SHELL=/bin/sh
+# 		PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# 		*/2 * * * * root /usr/local/sbin/limit-ip
+#         END
+#     cat >/etc/cron.d/lim-ip-ssh <<-END
+# 		SHELL=/bin/sh
+# 		PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# 		*/1 * * * * root /usr/local/sbin/limit-ip-ssh
+# 	END
+#     cat >/etc/cron.d/limit_ip2 <<-END
+# 		SHELL=/bin/sh
+# 		PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# 		*/2 * * * * root /usr/bin/limit-ip
+# 	END
+#     echo "*/1 * * * * root echo -n > /var/log/nginx/access.log" >/etc/cron.d/log.nginx
+#     echo "*/1 * * * * root echo -n > /var/log/xray/access.log" >>/etc/cron.d/log.xray
+#     service cron restart
+#     cat >/home/daily_reboot <<-END
+# 		5
+# 	END
+# curl -sS "ipinfo.io/city?token=7a814b6263b02c" > /root/.info/.city
+# cat >/etc/systemd/system/rc-local.service <<EOF
+# [Unit]
+# Description=/etc/rc.local
+# ConditionPathExists=/etc/rc.local
+# [Service]
+# Type=forking
+# ExecStart=/etc/rc.local start
+# TimeoutSec=0
+# StandardOutput=tty
+# RemainAfterExit=yes
+# SysVStartPriority=99
+# [Install]
+# WantedBy=multi-user.target
+# EOF
+
+# echo "/bin/false" >>/etc/shells
+# echo "/usr/sbin/nologin" >>/etc/shells
+# cat >/etc/rc.local <<EOF
+# #!/bin/sh -e
+# # rc.local
+# # By default this script does nothing.
+# iptables -I INPUT -p udp --dport 5300 -j ACCEPT
+# iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300
+# systemctl restart netfilter-persistent
+# exit 0
+# EOF
+
+# chmod +x /etc/rc.local
+
+# AUTOREB=$(cat /home/daily_reboot)
+# SETT=11
+# if [ $AUTOREB -gt $SETT ]; then
+#     TIME_DATE="PM"
+# else
+#     TIME_DATE="AM"
+# fi
+# print_success "Menu Packages"
+# }
+
 function profile(){
 clear
 cat >/root/.profile <<EOF
@@ -744,18 +889,11 @@ cat >/etc/cron.d/xp_all <<-END
 		2 0 * * * root /usr/local/sbin/xp
                 2 0 * * * root /usr/local/sbin/menu
 	END
-	cat >/etc/cron.d/logclean <<-END
-		SHELL=/bin/sh
-		PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-		*/20 * * * * root /usr/local/sbin/clearlog
-		END
+	# (removed logclean cron: */20 clearlog)
     chmod 644 /root/.profile
 
-    cat >/etc/cron.d/daily_reboot <<-END
-		SHELL=/bin/sh
-		PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-		0 5 * * * root /sbin/reboot
-	END
+    # (removed daily_reboot cron: 0 5 * * * reboot)
+
     cat >/etc/cron.d/limit_ip <<-END
 		SHELL=/bin/sh
 		PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
@@ -774,9 +912,8 @@ cat >/etc/cron.d/xp_all <<-END
     echo "*/1 * * * * root echo -n > /var/log/nginx/access.log" >/etc/cron.d/log.nginx
     echo "*/1 * * * * root echo -n > /var/log/xray/access.log" >>/etc/cron.d/log.xray
     service cron restart
-    cat >/home/daily_reboot <<-END
-		5
-	END
+
+    # (removed helper file /home/daily_reboot)
 curl -sS "ipinfo.io/city?token=7a814b6263b02c" > /root/.info/.city
 cat >/etc/systemd/system/rc-local.service <<EOF
 [Unit]
@@ -807,20 +944,16 @@ EOF
 
 chmod +x /etc/rc.local
 
-AUTOREB=$(cat /home/daily_reboot)
-SETT=11
-if [ $AUTOREB -gt $SETT ]; then
-    TIME_DATE="PM"
-else
-    TIME_DATE="AM"
-fi
-print_success "Menu Packages"
+# (removed AUTOREB/SETT/TIME_DATE block tied to helper file)
+
+print_success "[✔] Profile Configuration Applied Successfully. Environment, Cron Jobs, And System Settings Have Been Updated"
 }
+
 
 # Restart services after install
 function enable_services(){
 clear
-print_install "Enabling Services"
+print_install "[INFO] Enabling Services..."
 systemctl daemon-reload
 systemctl start netfilter-persistent
 systemctl enable --now rc-local
@@ -830,7 +963,7 @@ systemctl restart nginx
 systemctl restart xray
 systemctl restart cron
 systemctl restart haproxy
-print_success "Services Enabled"
+print_success "[✔] Services Enabled Successfully"
 clear
 }
 
@@ -842,7 +975,7 @@ nginx_install
 base_package
 make_folder_xray
 pasang_domain
-password_default
+# password_default
 pasang_ssl
 install_xray
 ssh
@@ -862,11 +995,10 @@ ins_restart
 menu
 profile
 enable_services
-restart_system
+# restart_system
 }
 instal
 echo ""
-history -c
 rm -rf /root/menu
 rm -rf /root/*.zip
 rm -rf /root/*.sh
@@ -877,7 +1009,7 @@ rm -rf /root/domain
 secs_to_human "$(($(date +%s) - ${start}))"
 sudo hostnamectl set-hostname EissamiXR
 echo ""
-echo "------------------------------------------------------------"
+echo "--------------------------------------------------------------------------------------"
 echo ""
 echo "   >>> Service & Port"  | tee -a log-install.txt
 echo "   - OpenSSH                 : 22, 53, 2222, 2269"  | tee -a log-install.txt
@@ -915,14 +1047,13 @@ echo "   - Restore Data" | tee -a log-install.txt
 echo "   - Full Orders For Various Services" | tee -a log-install.txt
 echo ""
 echo ""
-echo "------------------------------------------------------------"
+echo "--------------------------------------------------------------------------------------"
 echo ""
-echo "===============-[ SCRIPT BY EissamiXR ]-==============="
+echo "==============================-[ SCRIPT BY EissamiXR ]-==============================="
 echo -e ""
 echo ""
 echo "" | tee -a log-install.txt
-echo "Everything is running OK... Thank you for using EissamiXR Script!!"
+echo "Everything is Running OK... Thank You for Using EissamiXR Script!!"
 sleep 1
-echo -ne "[ COMPLETED ] SCRIPT INSTALLATION FINISHED? "
-reboot
+echo -ne "[✔ COMPLETED ] SCRIPT INSTALLATION FINISHED, SYSTEM WILL REBOOT NOW"
 reboot
