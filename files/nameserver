@@ -4,8 +4,10 @@ ns_domain_cloudflare() {
 	DOMAIN="amazingseven.online"
 	DOMAIN_PATH=$(cat /etc/xray/domain)
 	# SUB=$(tr </dev/urandom -dc a-z0-9 | head -c7)
-	read -p "$(echo -e ${GREEN}Re-enter The Same Subdomain for NS Records: ${NC})" sub
-	SUB_DOMAIN=${SUB}."amazingseven.online"
+	# read -p "$(echo -e ${GREEN}Re-enter The Same Subdomain for NS Records: ${NC})" sub
+	# SUB_DOMAIN=${SUB}."amazingseven.online"
+	read -p "$(echo -e ${GREEN}Re-Enter The Same Subdomain For NS Records: ${NC})" sub
+	SUB_DOMAIN="${sub}.amazingseven.online"
 	NS_DOMAIN=ns.${SUB_DOMAIN}
 	CF_ID=amazing7.me@gmail.com
         CF_KEY=8baccb3a0cd04f9095fd1fdd9c932fffcf9c3
