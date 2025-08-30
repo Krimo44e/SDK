@@ -14,8 +14,6 @@ green='\033[0;32m'
 grenbo="\e[92;1m"
 purple="\033[1;95m"
 YELL='\033[0;33m'
-#INTALLER-UDP
-UDPX="https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1S3IE25v_fyUfCLslnujFBSBMNunDHDk2' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1S3IE25v_fyUfCLslnujFBSBMNunDHDk2"
 ISP=$(cat /root/.info/.isp)
 CITY=$(cat /root/.info/.city)
 IPVPS=$(curl -s ipv4.icanhazip.com)
@@ -32,44 +30,6 @@ TIMEZONE=$(printf '%(%H-%M-%S)T')
 SERONLINE=$(uptime -p | cut -d " " -f 2-10000)
 clear
 MYIP=$(curl -sS ipv4.icanhazip.com)
-echo ""
-izinsc="https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/permission"
-# USERNAME
-rm -f /usr/bin/user
-username=$(curl ${izinsc} | grep $MYIP | awk '{print $2}')
-echo "$username" >/usr/bin/user
-# validity
-rm -f /usr/bin/e
-valid=$(curl ${izinsc} | grep $MYIP | awk '{print $3}')
-echo "$valid" >/usr/bin/e
-# DETAIL ORDER
-username=$(cat /usr/bin/user)
-oid=$(cat /usr/bin/ver)
-exp=$(cat /usr/bin/e)
-clear
-# CERTIFICATE STATUS
-d1=$(date -d "$valid" +%s)
-d2=$(date -d "$today" +%s)
-certifacate=$(((d1 - d2) / 86400))
-# VPS Information
-DATE=$(date +'%Y-%m-%d')
-datediff() {
-    d1=$(date -d "$1" +%s)
-    d2=$(date -d "$2" +%s)
-    echo -e "$COLOR1 $NC Expiry In   : $(( (d1 - d2) / 86400 )) Days"
-}
-mai="datediff "$Exp" "$DATE""
-
-# Status Expired Or Active
-Info="(${green}Active${NC})"
-Error="(${RED}Expired${NC})"
-today=`date -d "0 days" +"%Y-%m-%d"`
-Exp1=$(curl ${izinsc} | grep $MYIP | awk '{print $3}')
-if [[ $today < $Exp1 ]]; then
-sts="${Info}"
-else
-sts="${Error}"
-fi
 clear
 
 # OS Uptime

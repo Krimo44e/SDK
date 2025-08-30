@@ -915,9 +915,9 @@ rm -rf /root/*.sh
 rm -rf /root/LICENSE
 rm -rf /root/README.md
 rm -rf /root/domain
-#sudo hostnamectl set-hostname $user
+#sudo hostnamectl set-hostname EissamiXR
 secs_to_human "$(($(date +%s) - ${start}))"
-sudo hostnamectl set-hostname $username
+sudo hostnamectl set-hostname EissamiXR
 echo ""
 echo "------------------------------------------------------------"
 echo ""

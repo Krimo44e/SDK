@@ -14,8 +14,6 @@ green='\033[0;32m'
 grenbo="\e[92;1m"
 purple="\033[1;95m"
 YELL='\033[0;33m'
-#INTALLER-UDP
-UDPX="https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1S3IE25v_fyUfCLslnujFBSBMNunDHDk2' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1S3IE25v_fyUfCLslnujFBSBMNunDHDk2"
 ISP=$(cat /root/.info/.isp)
 CITY=$(cat /root/.info/.city)
 IPVPS=$(curl -s ipv4.icanhazip.com)
@@ -32,44 +30,6 @@ TIMEZONE=$(printf '%(%H-%M-%S)T')
 SERONLINE=$(uptime -p | cut -d " " -f 2-10000)
 clear
 MYIP=$(curl -sS ipv4.icanhazip.com)
-echo ""
-izinsc="https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/permission"
-# USERNAME
-rm -f /usr/bin/user
-username=$(curl ${izinsc} | grep $MYIP | awk '{print $2}')
-echo "$username" >/usr/bin/user
-# validity
-rm -f /usr/bin/e
-valid=$(curl ${izinsc} | grep $MYIP | awk '{print $3}')
-echo "$valid" >/usr/bin/e
-# DETAIL ORDER
-username=$(cat /usr/bin/user)
-oid=$(cat /usr/bin/ver)
-exp=$(cat /usr/bin/e)
-clear
-# CERTIFICATE STATUS
-d1=$(date -d "$valid" +%s)
-d2=$(date -d "$today" +%s)
-certifacate=$(((d1 - d2) / 86400))
-# VPS Information
-DATE=$(date +'%Y-%m-%d')
-datediff() {
-    d1=$(date -d "$1" +%s)
-    d2=$(date -d "$2" +%s)
-    echo -e "$COLOR1 $NC Expiry In   : $(( (d1 - d2) / 86400 )) Days"
-}
-mai="datediff "$Exp" "$DATE""
-
-# Status Expired Or Active
-Info="(${green}Active${NC})"
-Error="(${RED}Expired${NC})"
-today=`date -d "0 days" +"%Y-%m-%d"`
-Exp1=$(curl ${izinsc} | grep $MYIP | awk '{print $3}')
-if [[ $today < $Exp1 ]]; then
-sts="${Info}"
-else
-sts="${Error}"
-fi
 clear
 
 # OS Uptime
@@ -158,7 +118,7 @@ echo -e "   ${z}$NC [${f}09${NC}]$grenbo Fix SSL Certificate$NC"
 echo -e "   ${z}$NC [${f}10${NC}]$grenbo Install UDPCustom$NC"
 echo -e " ${CYAN}╰══════════════════════════════════════════════════╯${NC}"
 echo -e ""
-read -p " PLEASE SELECT AN OPTION [1-10 or x To Back] ➤ : " opt
+read -p " Please Type An Option [1–10], [x] To Go Back, Or [0] To Exit ➤ : " opt
 echo -e ""
 case $opt in
 1 | 01)
@@ -169,7 +129,7 @@ m-trial
 clear
 xp
 echo ""
-echo -e " ${GREEN} Back to Menu in 1 sec ${NC}"
+echo -e "[INFO] Returning To Main Menu In 1 Second..." | lolcat
 sleep 1
 menu-x
 ;;
@@ -184,15 +144,30 @@ reboot
 ;;
 5 | 05)
 clear
-echo -e "Edit Banner SSH Message " | lolcat
+echo -e "[INFO] Preparing to Edit SSH Banner Message..." | lolcat
 sleep 2
-echo -e "Loading..........⏳" | lolcat
+echo -e "[INFO] Loading Editor, Please Wait... ⏳" | lolcat
 sleep 5
 nano /etc/kyt.txt
 clear
-reboot
-clear
-menu
+#ask user to restart or back to menu
+read -p "Do You Want To Restart The SSH Service to Apply The New Banner? [Y/N] " choice
+if [[ "$choice" == [Yy] ]]; then
+  echo -e "[INFO] Restarting SSH Service..." | lolcat
+  sleep 2
+  restart
+  reboot
+elif [[ "$choice" == [Nn] ]]; then
+  echo -e "[INFO] Returning To Main Menu..." | lolcat
+  sleep 2
+  clear
+  menu
+else
+  echo -e "[✘] Invalid Input. Please Re-edit The Banner And Type Y To Restart SSH Service or N To Back To Menu" | lolcat
+  sleep 7
+  clear
+  menu-x
+fi
 ;;
 6 | 06)
 clear
@@ -212,11 +187,11 @@ fixcert
 ;;
 10)
 clear
-echo -e "Installing UDP-Custom" | lolcat
+echo -e "[INFO] Installing UDP-Custom..." | lolcat
 sleep 2
-wget -q https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/udp-custom/udp-custom-reinstall.sh -O udp-custom-reinstall.sh && chmod +x udp-custom-reinstall.sh && ./udp-custom-reinstall.sh
-echo -e "UDP-Custom Installation Complete Successfully" | lolcat
-echo -e "Back to Previous Menu in 2 seconds..." | lolcat
+wget -q https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/udp-custom/udp-custom-reinstall.sh && chmod +x udp-custom-reinstall.sh && ./udp-custom-reinstall.sh
+echo -e "[✔] UDP-Custom installation completed successfully" | lolcat
+echo -e "[INFO] Returning To Previous Menu In 2 Seconds..." | lolcat
 sleep 2
 clear
 menu-x
@@ -227,8 +202,10 @@ exit
 x)
 menu
 ;;
-*) clear ;
-echo -e "${RED}Please enter a valid number${NC}";
+*)
+echo -e "${RED}[✘] Invalid Input. Please Enter A Number Between [1–10], [x] To Go Back, Or [0] To Exit${NC}";
+sleep 4
+clear
 menu-x
 ;;
 esac

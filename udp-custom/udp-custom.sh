@@ -3,9 +3,12 @@ clear
 cd
 rm -rf /etc/udp
 mkdir -p /etc/udp
-echo "change to time GMT+7"
-ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
+# Set system timezone to Africa/Casablanca (GMT+1 with DST adjustments)
+echo -e "Configuring system timezone: Africa/Casablanca" | lolcat
+ln -fs /usr/share/zoneinfo/Africa/Casablanca /etc/localtime
 cd /etc/udp
+# install udp-custom
+echo -e "Downloading UDP-Custom Binary..." | lolcat
 wget -q -O udp-custom "https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/udp-custom/udp-custom-linux-amd64"
 chmod +x udp-custom
 cd
@@ -26,7 +29,7 @@ chmod 644 /etc/udp/config.json
 if [ -z "$1" ]; then
 cat <<EOF > /etc/systemd/system/udp-custom.service
 [Unit]
-Description=UDP Custom by ePro Dev. Team
+Description=UDP-Custom by ePro Dev. Team
 
 [Service]
 User=root
@@ -42,7 +45,7 @@ EOF
 else
 cat <<EOF > /etc/systemd/system/udp-custom.service
 [Unit]
-Description=UDP Custom by ePro Dev. Team
+Description=UDP-Custom by ePro Dev. Team
 
 [Service]
 User=root
@@ -61,6 +64,6 @@ systemctl start udp-custom &>/dev/null
 systemctl enable udp-custom &>/dev/null
 systemctl restart udp-custom &>/dev/null
 
-echo " Install udp success "
+echo -e "[✔] UDP-Custom installation completed successfully" | lolcat
 sleep 2 
 clear

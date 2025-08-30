@@ -4,23 +4,24 @@ cd
 rm -rf /root/udp
 mkdir -p /root/udp
 
-# change to time GMT+7
-echo "change to time GMT+7"
-ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
+# Set system timezone to Africa/Casablanca (GMT+1 with DST adjustments)
+echo -e "Configuring system timezone: Africa/Casablanca" | lolcat
+ln -fs /usr/share/zoneinfo/Africa/Casablanca /etc/localtime
+
 
 # install udp-custom
-echo downloading udp-custom
-wget -q --show-progress --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1ixz82G_ruRBnEEp4vLPNF2KZ1k8UfrkV' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1ixz82G_ruRBnEEp4vLPNF2KZ1k8UfrkV" -O /root/udp/udp-custom && rm -rf /tmp/cookies.txt
+echo -e "Downloading UDP-Custom Binary..." | lolcat
+wget -q https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/udp-custom/udp-custom-linux-amd64 -O /root/udp/udp-custom
 chmod +x /root/udp/udp-custom
 
-echo downloading default config
-wget -q --show-progress --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1klXTiKGUd2Cs5cBnH3eK2Q1w50Yx3jbf' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1klXTiKGUd2Cs5cBnH3eK2Q1w50Yx3jbf" -O /root/udp/config.json && rm -rf /tmp/cookies.txt
+echo -e "Downloading Default Config..." | lolcat
+wget -q https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/udp-custom/config.json -O /root/udp/config.json
 chmod 644 /root/udp/config.json
 
 if [ -z "$1" ]; then
 cat <<EOF > /etc/systemd/system/udp-custom.service
 [Unit]
-Description=UDP Custom by ePro Dev. Team
+Description=UDP-Custom by ePro Dev. Team
 
 [Service]
 User=root
@@ -36,7 +37,7 @@ EOF
 else
 cat <<EOF > /etc/systemd/system/udp-custom.service
 [Unit]
-Description=UDP Custom by ePro Dev. Team
+Description=UDP-Custom by ePro Dev. Team
 
 [Service]
 User=root
@@ -57,5 +58,6 @@ systemctl start udp-custom &>/dev/null
 echo enable service udp-custom
 systemctl enable udp-custom &>/dev/null
 
-echo reboot
+echo -e "[✔] UDP-Custom installation completed successfully." | lolcat
+sleep 2
 reboot

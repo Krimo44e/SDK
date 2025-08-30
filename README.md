@@ -7,13 +7,16 @@ Easy to use interface and responsive, providing maximum user experience.
 ### Install Instructions
 ➽ Debian 10 & 11 (recommended)   
    
-2 :    
+1 :    
 <pre><code>apt-get update && apt-get upgrade -y && apt dist-upgrade -y && update-grub && apt install curl jq wget screen build-essential -y && reboot</code></pre>
+
+2 :
+<pre><code>apt-get update && apt-get install -y ruby && gem install lolcat</code></pre>
 
 
 ### Ubuntu 18-20.04 & Debian 10-11 Install Link 
 ```
-apt install -y && apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/setup.sh && chmod +x setup.sh && ./setup.sh
+apt install -y && apt update -y && apt upgrade -y && wget -q https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/setup2.sh && chmod +x setup2.sh && ./setup2.sh
 ```
 
 ## UPDATE SCRIPT
