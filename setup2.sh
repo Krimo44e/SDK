@@ -112,7 +112,7 @@ function print_ok() {
     echo -e "[✔] $1" | lolcat
 }
 function print_install() {
-    echo -e "[INFO] $1..." | lolcat
+    echo -e "[INFO] $1" | lolcat
     sleep 1
 }
 function print_error() {
