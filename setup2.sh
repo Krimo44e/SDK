@@ -101,6 +101,10 @@ apt install wondershaper -y >/dev/null 2>&1
 clear
 # REPO
 REPO="https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/"
+# Detect primary network interface for vnstat-related steps
+NET="$(ip -o -4 route show to default 2>/dev/null | awk '{print $5}' || echo eth0)"
+export NET
+
 
 ####
 start=$(date +%s)
@@ -146,6 +150,8 @@ touch /var/log/xray/access.log
 touch /var/log/xray/error.log
 mkdir -p /var/lib/kyt >/dev/null 2>&1
 # // Ram Information
+mem_used=0
+mem_total=0
 while IFS=":" read -r a b; do
 case $a in
     "MemTotal") ((mem_used+=${b/kB})); mem_total="${b/kB}" ;;
