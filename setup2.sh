@@ -25,17 +25,40 @@ clear;clear;clear
 
 clear
 # Banner
-echo -e "----------------------------------------------------------" | lolcat
-echo -e "[INFO] Welcome To EissamiXR TMD Installation Script (V4.5 Stable Edition)." | lolcat
-echo -e "[INFO] Checking IP Address..." | lolcat
-echo -e "----------------------------------------------------------" | lolcat
-echo -e "[INFO] Author : EissamiXR®" | lolcat
-echo -e "[INFO] Telegram : @EissamiXR" | lolcat
-echo -e "----------------------------------------------------------" | lolcat
-echo ""
+set -euo pipefail
 
+TITLE="EissamiXR TMD"
+SUBTITLE="Welcome to EissamiXR TMD Installation Script (V4.5 Stable Edition)"
+SLOGAN="Seamless Setup • Stable Performance • Future in Motion"
+
+print_banner() {
+  if command -v figlet >/dev/null 2>&1; then
+    figlet -f standard "$TITLE"        | lolcat
+  elif command -v toilet >/dev/null 2>&1; then
+    toilet -f standard "$TITLE"        | lolcat
+  else
+    echo -e "$TITLE"              | lolcat
+  fi
+
+  echo -e "✨ $SUBTITLE ✨"        | lolcat
+  echo -e "🚀 $SLOGAN 🚀"           | lolcat
+}
+
+print_banner
+
+# echo -e "----------------------------------------------------------" | lolcat
+# echo -e "[INFO] Welcome To EissamiXR TMD Installation Script (V4.5 Stable Edition)." | lolcat
+# echo -e "[INFO] Checking OS Architecture..." | lolcat
+# echo -e "----------------------------------------------------------" | lolcat
+# echo -e "[INFO] Author : EissamiXR®" | lolcat
+# echo -e "[INFO] Telegram : @EissamiXR" | lolcat
+# echo -e "----------------------------------------------------------" | lolcat
+# echo ""
+
+
+echo -e ""
+echo -e "[INFO] Checking OS Architecture..." | lolcat
 sleep 2
-
 # // Checking Os Architecture
 if [[ $(uname -m | awk '{print $1}') == "x86_64" ]]; then
     echo -e "[✔] Architecture Supported ( $(uname -m) )." | lolcat
@@ -86,18 +109,18 @@ secs_to_human() {
 }
 ### Status
 function print_ok() {
-    echo -e "[✔] $1." | lolcat
+    echo -e "[✔] $1" | lolcat
 }
 function print_install() {
     echo -e "[INFO] $1..." | lolcat
     sleep 1
 }
 function print_error() {
-    echo -e "[✘] $1." | lolcat
+    echo -e "[✘] $1" | lolcat
 }
 function print_success() {
     if [[ 0 -eq $? ]]; then
-        echo -e "[✔] $1 Installed Successfully." | lolcat
+        echo -e "[✔] $1 Installed Successfully" | lolcat
         sleep 2
     fi
 }
@@ -112,7 +135,7 @@ function is_root() {
 }
 
 # Create Xray Directory
-print_install "[INFO] Creating Xray Directory..."
+print_install "Creating Xray Directory..."
 mkdir -p /etc/xray
 curl -s ifconfig.me > /etc/xray/ipvps
 touch /etc/xray/domain
@@ -145,7 +168,7 @@ function first_setup(){
     timedatectl set-timezone Africa/Casablanca
     echo iptables-persistent iptables-persistent/autosave_v4 boolean true | debconf-set-selections
     echo iptables-persistent iptables-persistent/autosave_v6 boolean true | debconf-set-selections
-    print_success "Setup Xray Directory"
+    print_success "Xray Directory"
     if [[ $(cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g') == "ubuntu" ]]; then
         echo -e "[INFO] Setting Up Dependencies For $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/\"//g' | sed 's/PRETTY_NAME//g')..." | lolcat
         sudo apt update -y
@@ -171,10 +194,10 @@ clear
 function nginx_install() {
     # // Checking System
     if [[ $(cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g') == "ubuntu" ]]; then
-        print_install "[INFO] Setting Up Nginx For $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/\"//g' | sed 's/PRETTY_NAME//g')"
+        print_install "Setting Up Nginx For $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/\"//g' | sed 's/PRETTY_NAME//g')"
         sudo apt-get install nginx -y
     elif [[ $(cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g') == "debian" ]]; then
-        print_success "[INFO] Setting Up Nginx For $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/\"//g' | sed 's/PRETTY_NAME//g')"
+        print_success "Setting Up Nginx For $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/\"//g' | sed 's/PRETTY_NAME//g')"
         apt -y install nginx
     else
         echo -e "[✘] Your Os Is Not Supported ( $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/\"//g' | sed 's/PRETTY_NAME//g') )." | lolcat
@@ -184,7 +207,7 @@ function nginx_install() {
 # Update and remove packages
 function base_package() {
     clear
-    print_install "[INFO] Installing Required Packages..."
+    print_install "Installing Required Packages..."
     apt install zip pwgen openssl netcat socat cron bash-completion -y
     apt install figlet -y
     apt update -y
@@ -210,7 +233,7 @@ function base_package() {
     echo iptables-persistent iptables-persistent/autosave_v4 boolean true | debconf-set-selections
     echo iptables-persistent iptables-persistent/autosave_v6 boolean true | debconf-set-selections
     sudo apt-get install -y speedtest-cli vnstat libnss3-dev libnspr4-dev pkg-config libpam0g-dev libcap-ng-dev libcap-ng-utils libselinux1-dev libcurl4-nss-dev flex bison make libnss3-tools libevent-dev bc rsyslog dos2unix zlib1g-dev libssl-dev libsqlite3-dev sed dirmngr libxml-parser-perl build-essential gcc g++ python htop lsof tar wget curl ruby zip unzip p7zip-full python3-pip libc6 util-linux build-essential ca-certificates iptables iptables-persistent netfilter-persistent net-tools openssl ca-certificates gnupg gnupg2 ca-certificates lsb-release gcc shc make cmake git screen socat xz-utils apt-transport-https gnupg1 dnsutils cron bash-completion ntpdate chrony jq openvpn easy-rsa
-    print_success "[✔] Required Packages Installed Successfully"
+    print_success "Required Packages"
 }
 
 clear
@@ -243,10 +266,10 @@ clear
 function pasang_domain() {
   echo -e ""
   clear
-  echo -e "[INFO] Domain Setup." | lolcat
-  echo -e "[INFO] 1) Enter Your Own Domain." | lolcat
-  echo -e "[INFO] 2) Use A Random Domain." | lolcat
-  read -r -p "$(echo -e 'Please Select 1–2 Or Any Other Key For Random: ' | lolcat)" host
+  echo -e "[INFO] Cloudflare Domain Setup" | lolcat
+  echo -e "[INFO] 1) Type Your Own Domain" | lolcat
+  echo -e "[INFO] 2) Use Script Domain" | lolcat
+  read -r -p "$(echo -e 'Please Select [1–2] Or Any Other Key For Random: ' | lolcat)" host
   echo ""
 
   case "$host" in
@@ -272,7 +295,7 @@ function pasang_domain() {
       done
       ;;
     2)
-      echo -e "[INFO] Generating Random Domain/Subdomain..." | lolcat
+      echo -e "[INFO] Generating Script Domain..." | lolcat
       # Fetch generator to a known path, run, then clean up
       if wget -qO /root/cf.sh "${REPO}files/cf.sh"; then
         chmod +x /root/cf.sh && /root/cf.sh
@@ -309,7 +332,7 @@ clear
 # Install SSL
 function pasang_ssl() {
 clear
-print_install "[INFO] Installing SSL Certificate On Domain..."
+print_install "Installing SSL Certificate On Domain..."
 rm -rf /etc/xray/xray.key
 rm -rf /etc/xray/xray.crt
 domain=$(cat /root/domain)
@@ -325,7 +348,7 @@ chmod +x /root/.acme.sh/acme.sh
 /root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256
 ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
 chmod 777 /etc/xray/xray.key
-print_success "[✔] SSL Certificate Installation Complete Successfully"
+print_success "SSL Certificate"
 }
 
 function make_folder_xray() {
@@ -375,7 +398,7 @@ echo "echo -e 'VPS Config User Account'" >> /etc/user-create/user.log
 # Install Xray
 function install_xray() {
 clear
-print_install "[INFO] Installing Xray Core (Latest)..."
+print_install "Installing Xray Core (Latest)..."
 domainSock_dir="/run/xray"; ! [ -d $domainSock_dir ] && mkdir  $domainSock_dir
 chown www-data.www-data $domainSock_dir
 
@@ -388,13 +411,13 @@ wget -O /etc/xray/config.json "${REPO}config/config.json" >/dev/null 2>&1
 wget -O /etc/systemd/system/runn.service "${REPO}files/runn.service" >/dev/null 2>&1
 domain=$(cat /etc/xray/domain)
 IPVS=$(cat /etc/xray/ipvps)
-print_success "[✔] Xray Core Installation Complete Successfully"
+print_success "Xray Core"
 
 # Settings Up Nginx/Haproxy Config
 clear
 curl -s ipinfo.io/city >>/etc/xray/city
 curl -s ipinfo.io/org | cut -d " " -f 2-10 >>/etc/xray/isp
-print_install "[INFO] Applying Configuration Packages..."
+print_install "Applying Configuration Packages..."
 wget -O /etc/haproxy/haproxy.cfg "${REPO}config/haproxy.cfg" >/dev/null 2>&1
 wget -O /etc/nginx/conf.d/xray.conf "${REPO}config/xray.conf" >/dev/null 2>&1
 sed -i "s/xxx/${domain}/g" /etc/haproxy/haproxy.cfg
@@ -427,12 +450,12 @@ LimitNOFILE=1000000
 [Install]
 WantedBy=multi-user.target
 EOF
-print_success "[✔] Configuration Packages Applied Successfully"
+print_success "Configuration Packages"
 }
 
 function ssh(){
 clear
-print_install "[INFO] Setting SSH Password Policy..."
+print_install "Setting SSH Password Policy..."
 wget -O /etc/pam.d/common-password "${REPO}files/password"
 chmod +x /etc/pam.d/common-password
 
@@ -499,12 +522,12 @@ sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.local
 
 # set locale
 sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
-print_success "[✔] SSH Password Policy Updated Successfully"
+print_success "SSH Password Policy"
 }
 
 function udp_mini(){
 clear
-print_install "[INFO] Installing UDP-Mini - IP & Quota Limit Service..."
+print_install "Installing UDP-Mini - IP & Quota Limit Service..."
 wget -q https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/config/fv-tunnel && chmod +x fv-tunnel && ./fv-tunnel
 
 # Installing UDP Mini
@@ -526,28 +549,28 @@ systemctl disable udp-mini-3
 systemctl stop udp-mini-3
 systemctl enable udp-mini-3
 systemctl start udp-mini-3
-print_success "[✔] Installation Complete Successfully"
+print_success "UDP-Mini & IP-Quota Limit Service"
 }
 
 function ssh_slow(){
 clear
-print_install "[INFO] Installing SlowDNS Server Module..."
+print_install "Installing SlowDNS Server Module..."
 wget -q -O /tmp/nameserver "${REPO}files/nameserver" >/dev/null 2>&1
 chmod +x /tmp/nameserver
 bash /tmp/nameserver | tee /root/install.log
-print_success "[✔] SlowDNS Server Module Installation Complete Successfully"
+print_success "SlowDNS Server Module"
 }
 
 clear
 function ins_SSHD(){
 clear
-print_install "[INFO] Installing SSHD Config..."
+print_install "Installing SSHD Config..."
 wget -q -O /etc/ssh/sshd_config "${REPO}files/sshd" >/dev/null 2>&1
 chmod 700 /etc/ssh/sshd_config
 /etc/init.d/ssh restart
 systemctl restart ssh
 /etc/init.d/ssh status
-print_success "[✔] SSHD Config Installation Complete Successfully"
+print_success "SSHD Config"
 }
 
 clear
@@ -563,30 +586,30 @@ clear
 # }
 function ins_dropbear(){
 clear
-print_install "[INFO] Installing Dropbear..."
+print_install "Installing Dropbear..."
 apt-get install dropbear -y
 wget -q -O /etc/default/dropbear https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/config/dropbear.conf
 chmod +x /etc/default/dropbear
 /etc/init.d/dropbear restart
 /etc/init.d/dropbear status
-print_success "[✔] Dropbear Installation Complete Successfully"
+print_success "Dropbear"
 }
 
 
 function ins_udpSSH(){
 clear
-print_install "[INFO] Installing UDP-Custom..."
+print_install "Installing UDP-Custom..."
 wget -q https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/udp-custom/udp-custom.sh
 chmod +x udp-custom.sh
 bash udp-custom.sh
 rm -fr udp-custom.sh
-print_success "[✔] UDP-Custom Installation Complete Successfully"
+print_success "UDP-Custom"
 }
 
 clear
 function ins_vnstat(){
 clear
-print_install "[INFO] Installing Vnstat..."
+print_install "Installing Vnstat..."
 apt -y install vnstat > /dev/null 2>&1
 /etc/init.d/vnstat restart
 apt -y install libsqlite3-dev > /dev/null 2>&1
@@ -603,20 +626,20 @@ systemctl enable vnstat
 /etc/init.d/vnstat status
 rm -f /root/vnstat-2.6.tar.gz
 rm -rf /root/vnstat-2.6
-print_success "[✔] Vnstat Installation Complete Successfully"
+print_success "Vnstat"
 }
 
 function ins_openvpn(){
 clear
-print_install "[INFO] Installing OpenVPN..."
+print_install "Installing OpenVPN..."
 wget -q https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/config/openvpn && chmod +x openvpn && ./openvpn
 /etc/init.d/openvpn restart
-print_success "[✔] OpenVPN Installation Complete Successfully"
+print_success "OpenVPN"
 }
 
 function ins_backup(){
 clear
-print_install "[INFO] Installing Wondershaper..."
+print_install "Installing Wondershaper..."
 # Install Wondershaper
 cd /bin
 git clone  https://github.com/magnific0/wondershaper.git
@@ -630,7 +653,7 @@ echo > /home/limit
 clear
 function ins_swab(){
 clear
-print_install "[INFO] Installing 1Gb Swap..."
+print_install "Installing 1Gb Swap..."
 gotop_latest="$(curl -s https://api.github.com/repos/xxxserxxx/gotop/releases | grep tag_name | sed -E 's/.*"v(.*)".*/\1/' | head -n 1)"
 gotop_link="https://github.com/xxxserxxx/gotop/releases/download/v$gotop_latest/gotop_v"$gotop_latest"_linux_amd64.deb"
 curl -sL "$gotop_link" -o /tmp/gotop.deb
@@ -650,12 +673,12 @@ chronyc sourcestats -v >/dev/null 2>&1
 chronyc tracking -v >/dev/null 2>&1
 
 wget ${REPO}files/bbr.sh &&  chmod +x bbr.sh && ./bbr.sh
-print_success "[✔] 1Gb Swap Installation Completed Successfully"
+print_success "1Gb Swap"
 }
 
 function ins_Fail2ban(){
 clear
-print_install "[INFO] Configuring Banner And Security..."
+print_install "Configuring Banner And Security..."
 # (Fail2ban commented as in original)
 # Install DDOS Flate
 if [ -d '/usr/local/ddos' ]; then
@@ -674,12 +697,12 @@ sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/kyt.txt"@g' /etc/default/drop
 
 # Change Banner
 wget -O /etc/kyt.txt https://raw.githubusercontent.com/Krimo44e/SDK/refs/heads/main/files/issue.net
-print_success "[✔] Banner And Security Configured Successfully"
+print_success "Banner And Security"
 }
 
 function ins_epro(){
 clear
-print_install "[INFO] Installing ePro Websocket Proxy..."
+print_install "Installing ePro Websocket Proxy..."
 wget -O /usr/bin/ws "${REPO}files/ws" >/dev/null 2>&1
 wget -O /usr/bin/tun.conf "${REPO}config/tun.conf" >/dev/null 2>&1
 wget -O /etc/systemd/system/ws.service "${REPO}files/ws.service" >/dev/null 2>&1
@@ -715,24 +738,24 @@ netfilter-persistent reload
 cd
 apt autoclean -y >/dev/null 2>&1
 apt autoremove -y >/dev/null 2>&1
-print_success "[✔] ePro Websocket Proxy Installation Complete Successfully"
+print_success "ePro Websocket Proxy"
 }
 
 function noobzvpn(){
 clear
-print_install "[INFO] Installing NoobzVPN..."
+print_install "Installing NoobzVPN..."
 wget "${REPO}/noobzvpns.zip"
 unzip noobzvpns.zip
 cd noobzvpns
 bash install.sh
 rm noobzvpns.zip
 systemctl restart noobzvpns
-print_success "[✔] NoobzVPN Installation Complete Successfully"
+print_success "NoobzVPN"
 }
 
 function ins_restart(){
 clear
-print_install "[INFO] Restarting All Packages..."
+print_install "Restarting All Packages..."
 # init.d restarts
 /etc/init.d/nginx restart
 /etc/init.d/openvpn restart
@@ -760,13 +783,13 @@ cd
 rm -f /root/openvpn
 rm -f /root/key.pem
 rm -f /root/cert.pem
-print_success "[✔] All Packages Restarted Successfully"
+print_success "All Packages Restarted -"
 }
 
 # Install Menu
 function menu(){
     clear
-    print_install "[INFO] Installing Menu Packages..."
+    print_install "Installing Menu Packages..."
     wget ${REPO}menu/menu.zip
     unzip menu.zip
     chmod +x menu/*
@@ -946,14 +969,14 @@ chmod +x /etc/rc.local
 
 # (removed AUTOREB/SETT/TIME_DATE block tied to helper file)
 
-print_success "[✔] Profile Configuration Applied Successfully. Environment, Cron Jobs, And System Settings Have Been Updated"
+print_success "Profile Configuration"
 }
 
 
 # Restart services after install
 function enable_services(){
 clear
-print_install "[INFO] Enabling Services..."
+print_install "Enabling Services..."
 systemctl daemon-reload
 systemctl start netfilter-persistent
 systemctl enable --now rc-local
@@ -963,7 +986,7 @@ systemctl restart nginx
 systemctl restart xray
 systemctl restart cron
 systemctl restart haproxy
-print_success "[✔] Services Enabled Successfully"
+print_success "Services Enabled -"
 clear
 }
 
@@ -1008,6 +1031,20 @@ rm -rf /root/domain
 # sudo hostnamectl set-hostname EissamiXR
 secs_to_human "$(($(date +%s) - ${start}))"
 sudo hostnamectl set-hostname EissamiXR
+print_banner() {
+  if command -v figlet >/dev/null 2>&1; then
+    figlet -f standard "$TITLE"        | lolcat
+  elif command -v toilet >/dev/null 2>&1; then
+    toilet -f standard "$TITLE"        | lolcat
+  else
+    echo -e "$TITLE"              | lolcat
+  fi
+
+  echo -e "✨ $SUBTITLE ✨"        | lolcat
+  echo -e "🚀 $SLOGAN 🚀"           | lolcat
+}
+
+print_banner
 echo ""
 echo "--------------------------------------------------------------------------------------"
 echo ""
